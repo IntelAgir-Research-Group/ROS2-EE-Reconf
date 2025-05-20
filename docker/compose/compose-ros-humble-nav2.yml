@@ -1,0 +1,484 @@
+version: '3'
+services:
+  reconfros2:
+    image: michelalbonico/ros:humble-ros-base
+    container_name: robot-runner_container
+    network_mode: "bridge"
+    stdin_open: false               # docker run -i
+    tty: true                      # docker run -t
+    privileged: true
+    restart: unless-stopped
+
+    environment:
+      - TURTLEBOT3_MODEL=waffle
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+    volumes:
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /dev:/dev
+      - maps:/maps
+      - nav2_data:/data
+      - nav2_profiler:/profiler
+      - exp_orchestration:/orchestrator
+      - packages:/packages
+      - rl4greenros-ws:/rl4greenros
+
+  robot-runner:
+    image: michelalbonico/ros:humble-ros-base
+    container_name: robot-runner_container
+    network_mode: "bridge"
+    stdin_open: false               # docker run -i
+    tty: true                      # docker run -t
+    privileged: true
+    restart: unless-stopped
+
+    environment:
+      - TURTLEBOT3_MODEL=waffle
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+    volumes:
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /dev:/dev
+      - maps:/maps
+      - nav2_data:/data
+      - nav2_profiler:/profiler
+      - exp_orchestration:/orchestrator
+      - packages:/packages
+      - rl4greenros-ws:/rl4greenros
+      - robot-runner:/robot-runner
+
+  nav2:
+    image: michelalbonico/ros:humble-ros-navigation
+    container_name: nav2_container
+    network_mode: "bridge"
+    stdin_open: false               # docker run -i
+    tty: false                      # docker run -t
+    privileged: true
+    restart: unless-stopped
+
+    environment:
+      - XAUTHORITY=/root/.Xauthority
+      - TURTLEBOT3_MODEL=waffle
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${XAUTHORITY}:/root/.Xauthority
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /dev:/dev
+      - maps:/maps
+      - nav2_data:/data
+      - nav2_profiler:/profiler
+      - exp_orchestration:/orchestrator
+      - packages:/packages
+
+    command: ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False
+
+  nav2_composition:
+    image: michelalbonico/ros:humble-ros-navigation
+    container_name: nav2_composition_container
+    network_mode: "bridge"
+    stdin_open: false               # docker run -i
+    tty: false                      # docker run -t
+    privileged: true
+    restart: unless-stopped
+
+    environment:
+      - XAUTHORITY=/root/.Xauthority
+      - TURTLEBOT3_MODEL=waffle
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${XAUTHORITY}:/root/.Xauthority
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /dev:/dev
+      - maps:/maps
+      - nav2_data:/data
+      - nav2_profiler:/profiler
+      - exp_orchestration:/orchestrator
+      - packages:/packages
+
+    command: ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml 
+
+    # command: bash -c "
+    #     cd /profiler/rapl-tools
+    #     &&
+    #     make
+    #     &&
+    #     setcap cap_sys_rawio+ep ./AppPowerMeter
+    #     &&
+    #     cd /
+    #     &&
+    #     /profiler/rapl-tools/AppPowerMeter ros2 launch nav2_bringup bringup_launch.py use_sim_time:=False map:=/maps/rl4greenros.yaml"
+
+  # nav2_slam:
+  #   image: michelalbonico/ros:humble-ros-navigation
+  #   container_name: nav2_slam_container
+  #   network_mode: "bridge"
+  #   stdin_open: false               # docker run -i
+  #   tty: false                      # docker run -t
+  #   privileged: true
+  #   restart: unless-stopped
+
+  #   environment:
+  #     - XAUTHORITY=/root/.Xauthority
+  #     - TURTLEBOT3_MODEL=waffle
+  #     - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+  #   volumes:
+  #     - /tmp/.X11-unix:/tmp/.X11-unix:rw
+  #     - ${XAUTHORITY}:/root/.Xauthority
+  #     - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+  #     - /dev:/dev
+  #     - maps:/maps
+  #     - nav2_data:/data
+  #     - nav2_profiler:/profiler
+  #     - exp_orchestration:/orchestrator
+  #     - packages:/packages
+
+  #   command: ros2 launch nav2_bringup slam_launch.py use_sim_time:=False map:=/maps/rl4greenros.yaml
+
+  # nav2_localization:
+  #   image: michelalbonico/ros:humble-ros-navigation
+  #   container_name: nav2_localization_container
+  #   network_mode: "bridge"
+  #   stdin_open: false               # docker run -i
+  #   tty: false                      # docker run -t
+  #   privileged: true
+  #   restart: unless-stopped
+
+  #   environment:
+  #     - XAUTHORITY=/root/.Xauthority
+  #     - TURTLEBOT3_MODEL=waffle
+  #     - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+  #   volumes:
+  #     - /tmp/.X11-unix:/tmp/.X11-unix:rw
+  #     - ${XAUTHORITY}:/root/.Xauthority
+  #     - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+  #     - /dev:/dev
+  #     - maps:/maps
+  #     - nav2_data:/data
+  #     - nav2_profiler:/profiler
+  #     - exp_orchestration:/orchestrator
+  #     - packages:/packages
+
+  #   command: ros2 launch nav2_bringup localization_launch.py use_sim_time:=False map:=/maps/rl4greenros.yaml
+
+  # nav2_navigation:
+  #   image: michelalbonico/ros:humble-ros-navigation
+  #   container_name: nav2_navigation_container
+  #   network_mode: "bridge"
+  #   stdin_open: false               # docker run -i
+  #   tty: false                      # docker run -t
+  #   privileged: true
+  #   restart: unless-stopped
+
+  #   environment:
+  #     - XAUTHORITY=/root/.Xauthority
+  #     - TURTLEBOT3_MODEL=waffle
+  #     - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+  #   volumes:
+  #     - /tmp/.X11-unix:/tmp/.X11-unix:rw
+  #     - ${XAUTHORITY}:/root/.Xauthority
+  #     - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+  #     - /dev:/dev
+  #     - maps:/maps
+  #     - nav2_data:/data
+  #     - nav2_profiler:/profiler
+  #     - exp_orchestration:/orchestrator
+  #     - packages:/packages
+
+  #   command: ros2 launch nav2_bringup navigation_launch.py use_sim_time:=False map:=/maps/rl4greenros.yaml use_composition:=False
+
+  # nav2_controller:
+  #   image: michelalbonico/ros:humble-ros-navigation
+  #   container_name: nav2_controller_container
+  #   network_mode: "bridge"
+  #   stdin_open: false               # docker run -i
+  #   tty: false                      # docker run -t
+  #   privileged: true
+  #   restart: unless-stopped
+
+  #   environment:
+  #     - TURTLEBOT3_MODEL=waffle
+  #     - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+  #   volumes:
+  #     - ${XAUTHORITY}:/root/.Xauthority
+  #     - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+  #     - /dev:/dev
+
+  #   command: ros2 run nav2_controller controller_server --ros-args --log-level info --remap cmd_vel:=cmd_vel_nav
+
+  # nav2_smoother:
+  #   image: michelalbonico/ros:humble-ros-navigation
+  #   container_name: nav2_smoother_container
+  #   network_mode: "bridge"
+  #   stdin_open: false               # docker run -i
+  #   tty: false                      # docker run -t
+  #   privileged: true
+  #   restart: unless-stopped
+
+  #   environment:
+  #     - TURTLEBOT3_MODEL=waffle
+  #     - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+  #   volumes:
+  #     - ${XAUTHORITY}:/root/.Xauthority
+  #     - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+  #     - /dev:/dev
+
+  #   command: ros2 run nav2_smoother smoother_server
+
+  # nav2_planner:
+  #   image: michelalbonico/ros:humble-ros-navigation
+  #   container_name: nav2_planner_container
+  #   network_mode: "bridge"
+  #   stdin_open: false               # docker run -i
+  #   tty: false                      # docker run -t
+  #   privileged: true
+  #   restart: unless-stopped
+
+  #   environment:
+  #     - TURTLEBOT3_MODEL=waffle
+  #     - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+  #   volumes:
+  #     - ${XAUTHORITY}:/root/.Xauthority
+  #     - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+  #     - /dev:/dev
+
+  #   command: ros2 run nav2_planner planner_server --ros-args --log-level info
+
+  # nav2_behavior:
+  #   image: michelalbonico/ros:humble-ros-navigation
+  #   container_name: nav2_behavior_container
+  #   network_mode: "bridge"
+  #   stdin_open: false               # docker run -i
+  #   tty: false                      # docker run -t
+  #   privileged: true
+  #   restart: unless-stopped
+
+  #   environment:
+  #     - TURTLEBOT3_MODEL=waffle
+  #     - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+  #   volumes:
+  #     - ${XAUTHORITY}:/root/.Xauthority
+  #     - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+  #     - /dev:/dev
+
+  #   command: ros2 run nav2_behaviors behavior_server --ros-args --log-level info --remap cmd_vel:=cmd_vel_nav
+
+  # nav2_velocity_smoother:
+  #   image: michelalbonico/ros:humble-ros-navigation
+  #   container_name: nav2_velocity_smoother_container
+  #   network_mode: "bridge"
+  #   stdin_open: false               # docker run -i
+  #   tty: false                      # docker run -t
+  #   privileged: true
+  #   restart: unless-stopped
+
+  #   environment:
+  #     - TURTLEBOT3_MODEL=waffle
+  #     - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+  #   volumes:
+  #     - ${XAUTHORITY}:/root/.Xauthority
+  #     - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+  #     - /dev:/dev
+
+  #   command: ros2 run nav2_velocity_smoother velocity_smoother --ros-args --log-level info --remap cmd_vel:=cmd_vel_nav
+
+  # nav2_collision_monitor:
+  #   image: michelalbonico/ros:humble-ros-navigation
+  #   container_name: nav2_collision_monitor_container
+  #   network_mode: "bridge"
+  #   stdin_open: false               # docker run -i
+  #   tty: false                      # docker run -t
+  #   privileged: true
+  #   restart: unless-stopped
+
+  #   environment:
+  #     - TURTLEBOT3_MODEL=waffle
+  #     - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+  #   volumes:
+  #     - ${XAUTHORITY}:/root/.Xauthority
+  #     - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+  #     - /dev:/dev
+
+  #   command: ros2 run nav2_collision_monitor collision_monitor --ros-args --log-level info
+
+  # nav2_bt_navigator:
+  #   image: michelalbonico/ros:humble-ros-navigation
+  #   container_name: nav2_bt_nav_container
+  #   network_mode: "bridge"
+  #   stdin_open: false               # docker run -i
+  #   tty: false                      # docker run -t
+  #   privileged: true
+  #   restart: unless-stopped
+
+  #   environment:
+  #     - TURTLEBOT3_MODEL=waffle
+  #     - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+  #   volumes:
+  #     - ${XAUTHORITY}:/root/.Xauthority
+  #     - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+  #     - /dev:/dev
+
+  #   command: ros2 run nav2_bt_navigator bt_navigator --ros-args --log-level info
+
+  # nav2_waypoint_follower:
+  #   image: michelalbonico/ros:humble-ros-navigation
+  #   container_name: nav2_bt_navigator_container
+  #   network_mode: "bridge"
+  #   stdin_open: false               # docker run -i
+  #   tty: false                      # docker run -t
+  #   privileged: true
+  #   restart: unless-stopped
+
+  #   environment:
+  #     - TURTLEBOT3_MODEL=waffle
+  #     - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+  #   volumes:
+  #     - ${XAUTHORITY}:/root/.Xauthority
+  #     - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+  #     - /dev:/dev
+
+  #   command: ros2 run nav2_waypoint_follower waypoint_follower --ros-args --log-level info
+
+  # nav2_lifecycle_manager:
+  #   image: michelalbonico/ros:humble-ros-navigation
+  #   container_name: nav2_lifecycle_manager_container
+  #   network_mode: "bridge"
+  #   stdin_open: false               # docker run -i
+  #   tty: false                      # docker run -t
+  #   privileged: true
+  #   restart: unless-stopped
+
+  #   environment:
+  #     - TURTLEBOT3_MODEL=waffle
+  #     - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+  #   volumes:
+  #     - ${XAUTHORITY}:/root/.Xauthority
+  #     - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+  #     - /dev:/dev
+
+  #   command: ros2 run nav2_waypoint_follower waypoint_follower --ros-args -p autostart:='true' -p node_names:="['controller_server','smoother_server','planner_server','behavior_server','velocity_smoother','collision_monitor','bt_navigator','waypoint_follower']" --log-level info
+
+  gazebo:
+    image: michelalbonico/ros:humble-ros-navigation
+    container_name: gazebo_container
+    network_mode: "bridge"
+    stdin_open: true               # docker run -i
+    tty: true                      # docker run -t
+    privileged: true
+    restart: unless-stopped
+
+    environment:
+      - DISPLAY=172.17.0.1${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/root/.Xauthority
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+      - TURTLEBOT3_MODEL=waffle
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${XAUTHORITY}:/root/.Xauthority
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /dev:/dev
+      - /dev/shm:/dev/shm
+      - packages:/packages
+
+    command: bash -c "
+        source /usr/share/gazebo/setup.bash
+        &&
+        source /packages/setup.bash
+        &&
+        nice -n 5 ros2 launch rl4greenros turtlebot3_rl4greenros_room.launch.py gui:=false headless:=true use_sim_time:=True"
+
+  rviz:
+    image: michelalbonico/ros:humble-ros-navigation
+    container_name: rviz_container
+    network_mode: "bridge"
+    stdin_open: true               # docker run -i
+    tty: true                      # docker run -t
+    privileged: true
+    restart: unless-stopped
+    
+    environment:
+      - DISPLAY=172.17.0.1${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/root/.Xauthority
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - NVIDIA_VISIBLE_DEVICES=all
+      - TURTLEBOT3_MODEL=waffle
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ${XAUTHORITY}:/root/.Xauthority
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /dev:/dev
+      - /dev/shm:/dev/shm
+      - nav2_data:/data
+    
+    command: nice -n 10 ros2 run rviz2 rviz2 -d /data/nav2_default_view.rviz gui:=False use_sim_time:=True
+
+volumes:
+  nav2_profiler:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/docker/profiler
+
+  nav2_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/docker/data
+
+  exp_orchestration:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/docker/exp-orchestration
+
+  packages:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/workspace/install
+
+  maps:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/docker/maps
+
+  rl4greenros-ws:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/workspace/src/
+
+  robot-runner:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/docker/robot-runner/

@@ -1,0 +1,5 @@
+'update_frequency','resolution','scan-obstacle_max_range','scan-raytrace_max_range','vx-z_voxels’,'vx-publish_voxel_map','vx-unknown_threshold','vx-mark_threshold','inf-inflation_radius','inf-cost_scaling_factor','rolling_window','width','height','track_unknown_space’,'transform_tolerance’,'subscribe_to_updates’,'inflate_unknknown’,'inflate_around_unknown’,'plugin_combination’
+'1.0','0.1','1.0','1.0','5’,'true','5','0’,'0.25','1.0','true','1','1','true’,'0.1’,'true’,'true’,'true’,"[][‘static_layer’, ‘obstacle_layer’, ‘inflation_layer']
+"
+'5.0','0.2','2.0','2.0','10’,'false','10','1’,'0.5','2.0','false','2','2','false','0.5’,'false’,'false’,'false’,"[‘voxel_layer'][‘static_layer’, ‘obstacle_layer’,‘inflation_layer']"
+'10.0',,'3.0','3.0','15’,,'15','2’,'0.75','3.0',,'3','3',,'1.0’,,,,"[‘obstacle_layer'][‘static_layer’, ‘inflation_layer']"

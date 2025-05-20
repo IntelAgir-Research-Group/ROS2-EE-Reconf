@@ -1,0 +1,4 @@
+allpairspy
+pandas
+testflows.combinatorics
+pyyaml

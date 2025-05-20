@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<robot xmlns="http://www.ros.org/wiki/urdf">
+  <!-- <link name="base_link" -->
+    <!-- Attach the LiDAR sensor to a link -->
+  <!--  <visual>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </collision>
+  </link> -->
+
+  <link name="lidar_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.125"/>
+      <inertia ixx="0.001"  ixy="0"  ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+    </inertial>
+ 
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+         <cylinder radius="0.0508" length="0.75"/>
+      </geometry>
+    </collision>
+ 
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+         <cylinder radius="0.0508" length="0.75"/>
+      </geometry>
+    </visual>
+  </link>
+     
+  <joint name="lidar_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0.215 0.0 0.30" rpy="0 0 0"/>
+  </joint>
+     
+  <gazebo reference="lidar_link">
+    <sensor name="lidar" type="ray">
+      <always_on>true</always_on>
+      <visualize>true</visualize>
+      <update_rate>5</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>120</samples>
+            <resolution>1.000000</resolution>
+            <min_angle>-3.14159</min_angle>
+            <max_angle>3.14159</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.3</min>
+          <max>15.0</max>
+          <resolution>0.015</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="scan" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <remapping>~/out:=scan</remapping>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <frame_name>lidar_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+  <gazebo reference="lidar_link">
+    <mu1>0.01</mu1>
+    <mu2>0.01</mu2>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- LiDAR sensor -->
+  <!-- <gazebo reference="base_link"
+    <sensor type="lidar" name="lidar_sensor">
+      <pose>0 0 1 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>10.0</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.5708</min_angle> 
+            <max_angle>1.5708</max_angle>
+          </horizontal>
+          <vertical>
+            <samples>1</samples>
+            <resolution>1</resolution>
+            <min_angle>0.0</min_angle>
+            <max_angle>0.0</max_angle>
+          </vertical>
+        </scan>
+        <range>
+          <min>0.1</min>
+          <max>100.0</max>
+        </range>
+      </ray>
+    </sensor>
+  </gazebo>
+  <gazebo>
+    <plugin name="gazebo_ros_lidar_controller" filename="libgazebo_ros_lidar.so">
+    	<topicName>/scan</topicName>
+      <sensorName>lidar_sensor</sensorName>
+    </plugin>
+  </gazebo> -->
+</robot>
