@@ -1,0 +1,11 @@
+[console_scripts]
+add_obstacle = reconfros2.add_obstacle:main
+initial_pose = reconfros2.initial_pose:main
+multi_navigation_goals = reconfros2.multi_navigation_goals:main
+nav_to_pose = reconfros2.nav_to_pose:main
+nav_to_pose_action = reconfros2.nav_to_pose_action:main
+reset_world = reconfros2.gazebo_reset_world:main
+respawn_world = reconfros2.respawn_gazebo:reset_world
+single_navigation_goal = reconfros2.single_navigation_goal:main
+spawn_robot = reconfros2.respawn_gazebo:spawn_entity
+

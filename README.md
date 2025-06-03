@@ -19,8 +19,9 @@ For building the package, we use a `Docker` container:
 
 ```bash
 docker-compose -f docker/compose/compose-ros-humble-nav2.yml up reconfros2
-docker exec -it reconfros2 bash
-cd /workspace
+docker exec -it reconfros2_container bash
+cd /ros-ws
+source /opt/ros/humble/setup.bash
 colcon build
 ```
 
