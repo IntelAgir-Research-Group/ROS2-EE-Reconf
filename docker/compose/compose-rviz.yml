@@ -1,0 +1,34 @@
+version: '3'
+services:
+  rviz:
+    # image: michelalbonico/ros:humble-ros-navigation
+    build: .
+    container_name: novo_rviz_container
+    network_mode: "bridge"
+    stdin_open: true               # docker run -i
+    tty: true                      # docker run -t
+    privileged: true
+    restart: unless-stopped
+    
+    environment:
+    - DISPLAY=${DISPLAY}
+    - QT_X11_NO_MITSHM=1
+    - XAUTHORITY=/root/.Xauthority
+    - TURTLEBOT3_MODEL=waffle
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /root/.docker.xauth:/root/.Xauthority:rw
+      - /dev:/dev
+      - /dev/shm:/dev/shm
+      - nav2_data:/data
+    
+    command: ros2 run rviz2 rviz2 -d /data/nav2_default_view.rviz --ros-args --remap use_sim_time:=True --remap gui:=True
+  
+volumes:
+  nav2_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/docker/data

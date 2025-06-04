@@ -1,6 +1,6 @@
 #!/bin/bash
 
-containers=`docker container list | awk '{ print $11 }'`
+containers=`docker container ls -a | awk '{ print $1 }'`
 
 for c in $containers;
 do

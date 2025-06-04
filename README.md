@@ -95,13 +95,14 @@ exec "$basedir"/Xorg.wrap "$@" -listen tcp
 3. Restart Xorg:
 
 ```bash
-$ sudo systemctl restart gdm
+sudo systemctl restart gdm
 ```
 
 4. Allow any host to connect to Xorg (you can disable after experiments):
 
 ```bash
-$ xhost +
+xhost +
+xhost +si:localuser:root
 ```
 
 Now, you can start GUI apps from your Docker containers. This is important to visually check everything is working accordingly.

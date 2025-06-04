@@ -1,0 +1,40 @@
+version: '3'
+services:
+  gazebo:
+    # image: michelalbonico/ros:humble-ros-navigation
+    build: .
+    container_name: gazebo_container
+    network_mode: "bridge"
+    stdin_open: true               # docker run -i
+    tty: true                      # docker run -t
+    privileged: true
+    restart: unless-stopped
+
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/root/.Xauthority
+      - TURTLEBOT3_MODEL=waffle
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models/
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /root/.docker.xauth:/root/.Xauthority:rw
+      - /dev:/dev
+      - /dev/shm:/dev/shm
+      - packages:/packages
+
+    command: bash -c "
+        source /usr/share/gazebo/setup.bash
+        &&
+        source /packages/setup.bash
+        &&
+        ros2 launch reconfros2 turtlebot3_rl4greenros_room.launch.py use_sim_time:=True gui:=True headless:=False"
+
+volumes:
+  packages:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/workspace/install

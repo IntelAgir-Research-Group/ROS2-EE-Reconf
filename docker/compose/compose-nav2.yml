@@ -1,0 +1,60 @@
+version: '3'
+services:
+  nav2:
+    build: .
+    container_name: nav2_container
+    network_mode: "bridge"
+    stdin_open: false               # docker run -i
+    tty: false                      # docker run -t
+    privileged: true
+    restart: unless-stopped
+
+    environment:
+      - TURTLEBOT3_MODEL=waffle
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+    volumes:
+      - /dev:/dev
+      - maps:/maps
+      - nav2_data:/data
+      - nav2_profiler:/profiler
+      - exp_orchestration:/orchestrator
+      - packages:/packages
+
+    command: ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False
+
+volumes:
+  nav2_profiler:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/docker/profiler
+
+  nav2_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/docker/data
+
+  exp_orchestration:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/exp-orchestration
+
+  packages:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/workspace/install
+
+  maps:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/docker/maps
