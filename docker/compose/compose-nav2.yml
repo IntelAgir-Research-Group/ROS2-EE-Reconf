@@ -3,7 +3,7 @@ services:
   nav2:
     build: .
     container_name: nav2_container
-    network_mode: "bridge"
+    network_mode: "host"
     stdin_open: false               # docker run -i
     tty: false                      # docker run -t
     privileged: true

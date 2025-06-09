@@ -4,7 +4,7 @@ services:
     # image: michelalbonico/ros:humble-ros-navigation
     build: .
     container_name: novo_rviz_container
-    network_mode: "bridge"
+    network_mode: "host"
     stdin_open: true               # docker run -i
     tty: true                      # docker run -t
     privileged: true
