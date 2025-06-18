@@ -4,8 +4,8 @@ services:
     build: .
     container_name: nav2_container
     network_mode: "host"
-    stdin_open: false               # docker run -i
-    tty: false                      # docker run -t
+    stdin_open: true              # docker run -i
+    tty: true                      # docker run -t
     privileged: true
     restart: unless-stopped
 
@@ -13,8 +13,7 @@ services:
       - TURTLEBOT3_MODEL=waffle
       - ROS_DOMAIN_ID=0
       - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-      - ROS_LOCALHOST_ONLY=0
-      - FASTRTPS_DEFAULT_PROFILES_FILE=""
+      - ROS_DISCOVERY_SERVER=127.0.0.1:11811
       - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
 
     volumes:
@@ -25,7 +24,11 @@ services:
       - exp_orchestration:/orchestrator
       - packages:/packages
 
-    command: ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False
+    command: bash -c "
+      fast-discovery-server --server-id 0 & 
+      ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False &
+      wait
+      "
 
 volumes:
   nav2_profiler:

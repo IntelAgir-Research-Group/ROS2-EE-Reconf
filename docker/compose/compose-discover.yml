@@ -1,0 +1,22 @@
+version: '3'
+services:
+  nav2:
+    build: .
+    container_name: discover_container
+    network_mode: "host"
+    stdin_open: true              # docker run -i
+    tty: true                      # docker run -t
+    privileged: true
+    restart: unless-stopped
+
+    environment:
+      - ROS_DOMAIN_ID=0
+      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+      - ROS_DISCOVERY_SERVER=127.0.0.1:11811
+      
+    volumes:
+      - /dev:/dev
+      
+    command: bash -c "
+      fast-discovery-server --server-id 0
+      "

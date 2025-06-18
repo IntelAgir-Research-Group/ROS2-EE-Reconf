@@ -113,7 +113,8 @@ services:
       - XAUTHORITY=/tmp/.docker.xauth
       - NVIDIA_DRIVER_CAPABILITIES=all
       - NVIDIA_VISIBLE_DEVICES=all
-      - TURTLEBOT3_MODEL=waffle
+      - TURTLEBOT3_MODEL=
+      - FASTDDS_DISCOVERY=${FASTDDS_DISCOVERY}
       - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models/
 
     volumes:

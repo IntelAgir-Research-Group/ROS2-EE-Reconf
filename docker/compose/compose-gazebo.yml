@@ -17,8 +17,7 @@ services:
       - TURTLEBOT3_MODEL=waffle
       - ROS_DOMAIN_ID=0
       - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-      - ROS_LOCALHOST_ONLY=0
-      - FASTRTPS_DEFAULT_PROFILES_FILE=""
+      - ROS_DISCOVERY_SERVER=127.0.0.1:11811
       - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models/
 
     volumes:
