@@ -4,11 +4,13 @@ services:
     # image: michelalbonico/ros:humble-ros-navigation
     build: .
     container_name: novo_rviz_container
-    network_mode: "host"
     stdin_open: true               # docker run -i
     tty: true                      # docker run -t
     privileged: true
     restart: unless-stopped
+    networks:
+      my_custom_network:
+        ipv4_address: 172.28.0.101
     
     environment:
     - DISPLAY=${DISPLAY}
@@ -17,7 +19,7 @@ services:
     - TURTLEBOT3_MODEL=waffle
     - ROS_DOMAIN_ID=0
     - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-    - ROS_DISCOVERY_SERVER=127.0.0.1:11811
+    - ROS_DISCOVERY_SERVER=172.28.1.1:11811
 
 
     volumes:
@@ -36,3 +38,11 @@ volumes:
       type: none
       o: bind
       device: ${RL4GreenROS_PATH}/docker/data
+
+networks:
+  my_custom_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+          gateway: 172.28.0.1
