@@ -1,6 +1,6 @@
 version: '3'
 services:
-  nav2:
+  discover:
     build: .
     container_name: discover_container
     network_mode: "host"
@@ -12,11 +12,9 @@ services:
     environment:
       - ROS_DOMAIN_ID=0
       - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-      - ROS_DISCOVERY_SERVER=127.0.0.1:11811
+      - ROS_DISCOVERY_SERVER=172.30.8.167:11811
       
     volumes:
       - /dev:/dev
       
-    command: bash -c "
-      fast-discovery-server --server-id 0
-      "
+    command: fastdds discovery --server-id 0

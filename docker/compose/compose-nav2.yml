@@ -24,12 +24,8 @@ services:
       - exp_orchestration:/orchestrator
       - packages:/packages
 
-    command: bash -c "
-      fast-discovery-server --server-id 0 & 
-      ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False &
-      wait
-      "
-
+    command: ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False
+    
 volumes:
   nav2_profiler:
     driver: local
