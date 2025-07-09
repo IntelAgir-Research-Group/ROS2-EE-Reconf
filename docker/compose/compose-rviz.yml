@@ -10,18 +10,18 @@ services:
     restart: unless-stopped
     networks:
       my_custom_network:
-        ipv4_address: 172.28.1.101
+        ipv4_address: 172.28.1.102
     
     environment:
     - DISPLAY=${DISPLAY}
     - QT_X11_NO_MITSHM=1
-    - XAUTHORITY=/root/.Xauthority
+    - XAUTHORITY=/root/.docker.xauth
     - TURTLEBOT3_MODEL=waffle
     - ROS_DOMAIN_ID=0
 
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /root/.docker.xauth:/root/.Xauthority:rw
+      - /root/.docker.xauth:/root/.docker.xauth:rw
       - /dev:/dev
       - /dev/shm:/dev/shm
       - nav2_data:/data
