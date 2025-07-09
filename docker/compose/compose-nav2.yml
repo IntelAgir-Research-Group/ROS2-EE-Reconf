@@ -9,13 +9,11 @@ services:
     restart: unless-stopped
     networks:
       my_custom_network:
-        ipv4_address: 172.28.0.100
+        ipv4_address: 172.28.1.100
 
     environment:
       - TURTLEBOT3_MODEL=waffle
       - ROS_DOMAIN_ID=0
-      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-      - ROS_DISCOVERY_SERVER=172.28.1.1:11811
       - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
 
     volumes:
@@ -70,4 +68,4 @@ networks:
     ipam:
       config:
         - subnet: 172.28.0.0/16
-          gateway: 172.28.0.1
+          gateway: 172.28.1.1

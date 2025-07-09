@@ -18,8 +18,6 @@ services:
       - XAUTHORITY=/root/.Xauthority
       - TURTLEBOT3_MODEL=waffle
       - ROS_DOMAIN_ID=0
-      - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
-      - ROS_DISCOVERY_SERVER=172.30.8.167:11811
       - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models/
 
     volumes:

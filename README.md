@@ -44,40 +44,53 @@ Then, install the dependencies:
 pip3 install -r requirements.txt
 ```
 
-And generate the configurations from the list of possible parameter values:
+And generate the configurations from the list of possible parameter values (ONLY FIRST TIME):
 
 ```bash
 cd config/
 python3 gen_pairwise_confs.py
 ```
 
-Then, the `yaml` files can be generated:
+Then, the `yaml` files can be generated (ONLY FIRST TIME):
 
 ```bash
-python3 
+TBA
 ```
 
 ### Docker Setup
 
-All the computation runs on Docker containers. We keep services in a single compose files in the `docker/compose` folder.
+All the computation runs on Docker containers. Please, install `Docker` and `Docker Compose`. It is also important that you set you user to run `docker` [rootless](https://docs.docker.com/engine/security/rootless/) commands. 
+
+We keep services in separate compose files in the `docker/compose` folder.
 
 To run a specific service:
 
 ```bash
-$ sudo docker-compose -f <file.yml> up SERVICE
+$ docker-compose -f <file.yml> up SERVICE
 ```
 
-Example:
+Example of a complete run (run in three separate terminals):
 
+Gazebo:
 ```bash
-$ sudo docker-compose -f docker/compose/compose-ros-humble.yml up ros-humble
+$ docker-compose -f docker/compose/compose-gazebo.yml up gazebo
+```
+
+Nav2:
+```bash
+$ docker-compose -f docker/compose/compose-nav2.yml up nav2
+```
+
+RVIZ:
+```bash
+$ docker-compose -f docker/compose/compose-rviz.yml up rviz
 ```
 
 #### Running GUI from Docker
 
-Unfortunately, so far we could not work by using the graphic card from the kernel module. :(
+This is a work around that helps you to run GUI from Docker containers. From Ubuntu 19, Xorg does not allow TCP connections by default, so we must enable it. Another point, when logging in, be sure to choose Xorg as window manager. 
 
-However, there is a work around that helps us to run GUI from Docker containers. From Ubuntu 19, Xorg does not allow TCP connections by default, so we must enable it. For this, follow the next steps:
+Then, follow the next steps:
 
 1. Edit the `/etc/X11/Xwrapper.config` as the following:
 
@@ -105,9 +118,7 @@ xhost +
 xhost +si:localuser:root
 ```
 
-Now, you can start GUI apps from your Docker containers. This is important to visually check everything is working accordingly.
-
-For the experiments, we set GUI mode off.
+Now, you can start GUI apps from your Docker containers. This is important to visually check everything is working accordingly. *For the experiments, we set GUI mode off*.
 
 ## Running the Experiments
 
@@ -123,25 +134,7 @@ The configurations are generated in folder `config` as YAML files.
 
 All the experiment is set on the RR configuration file: `./exp-orchestration/RR-ReconfROS.py`. The results are saved in the `exp-orchestration/data` folder.'
 
-Before starting the experiments, both computers must have the exact same copy this repository.
-
-#### On Computer 1 (Gazebo environment)
-
-Start the Gazebo environment with the following command:
-
-```bash
-...
-```
-
-#### On Computer 2 (Nav2 Stack)
-
-You must source this repository:
-
-```bash
-source setup.bash
-```
-
-Then, the following command runs all the experiment trials (if interruppted, RR restarts from the point where the previous exection stopped):
+For this, run the following command:
 
 ```bash
 ...
