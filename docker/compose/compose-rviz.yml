@@ -10,7 +10,7 @@ services:
     restart: unless-stopped
     networks:
       my_custom_network:
-        ipv4_address: 172.28.1.101
+        ipv4_address: 172.28.1.102
     
     environment:
     - DISPLAY=${DISPLAY}

@@ -9,7 +9,7 @@ services:
     restart: unless-stopped
     networks:
       my_custom_network:
-        ipv4_address: 172.28.1.100
+        ipv4_address: 172.28.1.101
 
     environment:
       - TURTLEBOT3_MODEL=waffle
