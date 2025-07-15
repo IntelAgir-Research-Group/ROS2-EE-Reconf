@@ -1,0 +1,171 @@
+version: '3'
+services:
+  gazebo:
+    # image: michelalbonico/ros:humble-ros-navigation
+    build: .
+    container_name: gazebo_container
+    stdin_open: true               # docker run -i
+    tty: true                      # docker run -t
+    privileged: true
+    restart: unless-stopped
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - capabilities: [gpu]
+    networks:
+      my_custom_network:
+        ipv4_address: 172.28.1.100
+
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/root/.Xauthority
+      - TURTLEBOT3_MODEL=waffle
+      - ROS_DOMAIN_ID=0
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models/
+
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /root/.docker.xauth:/root/.Xauthority:rw
+      - /dev:/dev
+      - /dev/shm:/dev/shm
+      - packages:/packages
+
+    command: bash -c "
+        source /usr/share/gazebo/setup.bash
+        &&
+        source /packages/setup.bash
+        &&
+        ros2 launch reconfros2 turtlebot3_rl4greenros_room.launch.py use_sim_time:=True gui:=True headless:=False"
+
+  rviz:
+      # image: michelalbonico/ros:humble-ros-navigation
+      build: .
+      container_name: rviz_container
+      stdin_open: true               # docker run -i
+      tty: true                      # docker run -t
+      privileged: true
+      restart: unless-stopped
+      networks:
+        my_custom_network:
+          ipv4_address: 172.28.1.102
+      
+      environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/root/.Xauthority
+      - TURTLEBOT3_MODEL=waffle
+      - ROS_DOMAIN_ID=0
+
+      volumes:
+        - /tmp/.X11-unix:/tmp/.X11-unix:rw
+        - /root/.docker.xauth:/root/.Xauthority:rw
+        - /dev:/dev
+        - /dev/shm:/dev/shm
+        - nav2_data:/data
+      
+      command: ros2 run rviz2 rviz2 -d /data/nav2_default_view.rviz --ros-args --remap use_sim_time:=True --remap gui:=True
+
+  nav2:
+      build: .
+      container_name: nav2_container
+      stdin_open: true              # docker run -i
+      tty: true                      # docker run -t
+      privileged: true
+      restart: unless-stopped
+      networks:
+        my_custom_network:
+          ipv4_address: 172.28.1.101
+
+      environment:
+        - TURTLEBOT3_MODEL=waffle
+        - ROS_DOMAIN_ID=0
+        - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+      volumes:
+        - /dev:/dev
+        - maps:/maps
+        - nav2_data:/data
+        - nav2_profiler:/profiler
+        - exp_orchestration:/orchestrator
+        - packages:/packages
+
+      command: ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False
+
+  robot-runner:
+    image: michelalbonico/ros:humble-ros-base
+    container_name: robot-runner_container
+    stdin_open: false               # docker run -i
+    tty: true                      # docker run -t
+    privileged: true
+    restart: unless-stopped
+    networks:
+        my_custom_network:
+          ipv4_address: 172.28.1.103
+
+    environment:
+      - TURTLEBOT3_MODEL=waffle
+      - ROS_DOMAIN_ID=0
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+    
+    volumes:
+      - /tmp/.docker.xauth:/tmp/.docker.xauth:rw
+      - /dev:/dev
+      - maps:/maps
+      - nav2_data:/data
+      - nav2_profiler:/profiler
+      - exp_orchestration:/orchestrator
+      - packages:/packages
+      - robot-runner:/robot-runner
+
+volumes:
+  packages:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/workspace/install
+  
+  nav2_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/docker/data
+
+  nav2_profiler:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/docker/profiler
+
+  exp_orchestration:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/exp_orchestration
+
+  maps:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/docker/maps
+
+  robot-runner:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RR_PATH}
+
+networks:
+  my_custom_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+          gateway: 172.28.1.1

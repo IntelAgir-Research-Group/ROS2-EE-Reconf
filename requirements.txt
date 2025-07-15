@@ -2,3 +2,6 @@ allpairspy
 pandas
 testflows.combinatorics
 pyyaml
+docker
+tabulate
+psutil

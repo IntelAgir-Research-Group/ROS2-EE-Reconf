@@ -1,0 +1,2 @@
+FROM michelalbonico/ros:humble-ros-base
+RUN rm -f /root/.Xauthority

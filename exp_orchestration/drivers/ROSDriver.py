@@ -1,0 +1,70 @@
+import os
+import subprocess
+import sys
+from ament_index_python.packages import get_package_share_directory
+import time
+
+rr_path = os.getenv('RR_PATH')
+sys.path.append(rr_path)
+
+# Used to set Robot Runner Context
+from ConfigValidator.Config.Models.RobotRunnerContext import RobotRunnerContext
+
+class ROSDriver:
+    configuration_root_dir = '/exp_orchestration/configs/'
+    configuration_prefix = 'local_costmap_config_'
+    configuration_sufix = '.yaml'
+    container_name = 'robot-runner_container'
+
+    # position_goals = [(1, [-2.50, 1.5]), (2, [-2.50, -1.25]),
+    #                 (3, [-0.35, -0.80]), (4, [1.50, -1.00]),
+    #                 (5, [2.50, 0.50]), (6, [0.6, 0.50])]
+
+    def exec_docker_command(self, command: str):
+        docker_command = f"docker exec {self.container_name} bash -c \"{command}\""
+        result = subprocess.run(docker_command, shell=True, capture_output=True, text=True)
+        if result.returncode != 0:
+            print(f"Error: {result.stderr}")
+        else:
+            print(f"Success: {result.stdout}")        
+        time.sleep(5)
+        return result
+
+    def set_initial_position(self):
+        command = "source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 initial_pose"
+        self.exec_docker_command(command)
+        return
+
+    def next_configuration(self, context: RobotRunnerContext): # implement the move to position logic
+        variation = context.run_variation
+
+        # Getting Configuration
+        configuration_number = variation['configuration']
+        print(f"Loading configuration '{configuration_number}'...")
+        
+        configuation = self.configuration_prefix + str(configuration_number) + self.configuration_sufix
+        configuration_path = self.configuration_root_dir + configuation
+        command = "source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 param load /local_costmap/local_costmap " + configuration_path
+        self.exec_docker_command(command)
+        return
+    
+    def next_position(self, context: RobotRunnerContext):
+        variation = context.run_variation
+
+        # Getting next position
+        next_position = int(variation['position_goal'])
+        command = f"source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 nav_to_pose --ros-args -p nav_goal:={next_position}"
+        self.exec_docker_command(command)
+
+    def next_obstacle(self, context: RobotRunnerContext): # implement obstacles at the preset position
+        variation = context.run_variation
+
+        # number obstacles
+        number_obstacles = variation['number_obstacles']
+
+        if number_obstacles > 0:
+            print(f"Adding '{number_obstacles}' obstacles.")
+        else:
+            print("No obstacles!")
+        
+        return

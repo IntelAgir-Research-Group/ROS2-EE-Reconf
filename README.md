@@ -13,21 +13,17 @@ This is the replication package of the paper `TITLE` on the reconfiguration of R
 
 ### Workspace
 
-Here is where we develop customized ROS 2 package (`reconfros2`) for orchestration and profiling.
-
-For building the package, we use a `Docker` container:
+For building the package (ONLY WHEN SOMETHING IS CHANGED), we use a `Docker` container:
 
 ```bash
-docker-compose -f docker/compose/compose-ros-humble-nav2.yml up reconfros2
-docker exec -it reconfros2_container bash
+docker-compose -f docker/compose/docker-compose.yml up robot-runner
+docker exec -it robot-runner_container bash
 cd /ros-ws
 source /opt/ros/humble/setup.bash
 colcon build
 ```
 
-You can also simply push the changes to GitHub, which automatically builds the `package`. Then, you must pull the changes locally.
-
-TBA -- GitHub Action
+You can also simply push the changes to GitHub, which automatically builds the `package`. Then, you must pull the changes locally. `GitHub Action TBA`
 
 ### Configurations
 
@@ -128,17 +124,7 @@ For running the experiments, you must have the `robot-runner` repository clonned
 export RR_PATH='../robot-runner'
 ```
 
-We have some customized plugins in ...
-
-The configurations are generated in folder `config` as YAML files.
-
-All the experiment is set on the RR configuration file: `./exp-orchestration/RR-ReconfROS.py`. The results are saved in the `exp-orchestration/data` folder.'
-
-For this, run the following command:
-
-```bash
-...
-```
+Then, move to [this](./exp-orchestration/) tutorial/documentation.
 
 ## Data Analysis
 

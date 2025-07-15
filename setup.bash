@@ -5,8 +5,7 @@ else
 fi
 
 if [ -z "$RL4GreenROS_PATH" ]; then
-    read -e -p "RL4GreenROS_PATH is not set. Please enter the path to RL4GreenROS: " user_path
-    export RL4GreenROS_PATH="$user_path"
+    export RL4GreenROS_PATH=`pwd`
 
     if ! grep -q "export RL4GreenROS_PATH=" "$SHELL_RC"; then
         {
@@ -18,7 +17,7 @@ if [ -z "$RL4GreenROS_PATH" ]; then
     fi
 fi
 
-SETUP_FILE="$RL4GreenROS_PATH/docker/workspace/install/setup.bash"
+SETUP_FILE="$RL4GreenROS_PATH/workspace/install/setup.bash"
 if [ -f "$SETUP_FILE" ]; then
     source "$SETUP_FILE"
     echo "Sourced setup.bash from $SETUP_FILE"
