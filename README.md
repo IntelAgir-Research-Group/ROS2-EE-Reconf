@@ -118,7 +118,7 @@ Now, you can start GUI apps from your Docker containers. This is important to vi
 
 ## Running the Experiments
 
-For running the experiments, you must have the `robot-runner` repository clonned and set the environment variable:
+For running the experiments, you must have the `robot-runner` [repository](https://github.com/S2-group/robot-runner) cloned and set the environment variable:
 
 ```bash
 export RR_PATH='../robot-runner'
