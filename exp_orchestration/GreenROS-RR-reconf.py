@@ -123,7 +123,7 @@ class RobotRunnerConfig:
     def start_measurement(self, context: RobotRunnerContext) -> None:
         """Perform any activity required for starting measurements."""
         print("Config.start_measurement called!")
-        self.cpu_mem_profiler.start_profiler("nav2_container","cpu-mem.csv", context)
+        # self.cpu_mem_profiler.start_profiler("nav2_container","cpu-mem.csv", context)
 
     def launch_mission(self, context: RobotRunnerContext) -> None:
         """Perform any activity interacting with the robotic
@@ -135,16 +135,16 @@ class RobotRunnerConfig:
     def stop_measurement(self, context: RobotRunnerContext) -> None:
         """Perform any activity here required for stopping measurements."""
         print("Config.stop_measurement called!")
-        self.cpu_mem_profiler.stop_profiler()
+        # self.cpu_mem_profiler.stop_profiler()
         """
             Dumping measurements: Improve the code later
         """
-        print("Copying the power consumption data to the results folder")
-        variation = context.run_variation
-        run_id = variation['__run_id']
-        dest_cpu_file = f"~/Documents/experiments/greenros_reconf/{run_id}/cpu_mem.csv"
-        command_cpu = f"cp {rl4greenros_path}/cpu-mem.csv {dest_cpu_file}"
-        subprocess.run(command_cpu, shell=True)
+        # print("Copying the power consumption data to the results folder")
+        # variation = context.run_variation
+        # run_id = variation['__run_id']
+        # dest_cpu_file = f"~/Documents/experiments/greenros_reconf/{run_id}/cpu_mem.csv"
+        # command_cpu = f"cp {rl4greenros_path}/cpu-mem.csv {dest_cpu_file}"
+        # subprocess.run(command_cpu, shell=True)
 
     def stop_run(self, context: RobotRunnerContext) -> None:
         """Perform any activity required for stopping the run here.
