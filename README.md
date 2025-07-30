@@ -57,7 +57,23 @@ TBA
 
 All the computation runs on Docker containers. Please, install `Docker` and `Docker Compose`. It is also important that you set you user to run `docker` [rootless](https://docs.docker.com/engine/security/rootless/) commands. 
 
-We keep services in separate compose files in the `docker/compose` folder.
+We keep services in separate compose files in the `docker/compose` folder. The `*.yml` files use the environment variable `RL4GreenROS_PATH` and `GAZEBO_MODEL_PATH` to build the project. It must be set in the `.env` file prior to starting the containers.
+Make sure the paths exist fist. Then add your path to the variables like this: (You can find an example in the preconfigured file)
+
+```
+RL4GreenROS_PATH=<path_to_projectfolder>
+GAZEBO_MODEL_PATH=<path_to_projectfolder>/models
+
+```
+
+Last, Rviz requires you to add X11-access for docker. You can do that with the following command: 
+
+```bash
+$ xhost +local:root
+$ xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f ~/.docker.xauth nmerge -
+$ ls -l ~/.docker.xauth
+$ xhost +local:root
+```
 
 To run a specific service:
 
