@@ -77,8 +77,8 @@ class RobotRunnerConfig:
         run_table = RunTableModel(
             factors = [
                 FactorModel("round", range(0,5)),
-                # FactorModel("configuration", range(1,21)),
-                FactorModel("position_goal", [1,2,3]),
+                FactorModel("configuration", range(0,20)),
+                FactorModel("position_goal", [2]),
                 # FactorModel("number_obstacles", [0,1,2]), # Only implemented in 1 map
                 # FactorModel("global",[0,1]), # Not implemented (global_costmap)
                 # FactorModel("local", [0,1]), # Not implemented (local_costmap)

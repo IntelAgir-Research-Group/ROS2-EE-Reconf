@@ -1,0 +1,19 @@
+local_costmap:
+  ros__parameters:
+    update_frequency: 5.0
+    resolution: 0.2
+    rolling_window: true
+    track_unknown_space: true
+    transform_tolerance: 0.5
+    subscribe_to_updates: false
+    plugins:
+    - voxel_layer
+    width: 1
+    height: 3
+    voxel_layer:
+      publish_voxel_map: true
+      z_voxels: 10
+      unknown_threshold: 15
+      mark_threshold: 0
+    inflate_unknown: false
+    inflate_around_unknown: true

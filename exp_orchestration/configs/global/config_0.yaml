@@ -1,0 +1,22 @@
+global_costmap:
+  ros__parameters:
+    update_frequency: 1.0
+    resolution: 0.1
+    obstacle_layer:
+      obstacle_range: 1.0
+      raytrace_range: 1.0
+    inflation_layer:
+      inflation_radius: 0.25
+      cost_scaling_factor: 1.0
+    rolling_window: true
+    track_unknown_space: true
+    transform_tolerance: 0.1
+    subscribe_to_updates: true
+    plugins:
+    - static_layer
+    - obstacle_layer
+    - inflation_layer
+    width: 1
+    height: 1
+    inflate_unknown: true
+    inflate_around_unknown: true

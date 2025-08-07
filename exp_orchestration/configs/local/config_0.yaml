@@ -1,0 +1,13 @@
+local_costmap:
+  ros__parameters:
+    update_frequency: 1.0
+    resolution: 0.1
+    rolling_window: true
+    track_unknown_space: true
+    transform_tolerance: 0.1
+    subscribe_to_updates: true
+    plugins: []
+    width: 1
+    height: 1
+    inflate_unknown: true
+    inflate_around_unknown: true

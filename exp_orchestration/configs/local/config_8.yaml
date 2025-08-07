@@ -1,0 +1,15 @@
+local_costmap:
+  ros__parameters:
+    update_frequency: 10.0
+    resolution: 0.2
+    obstacle_layer:
+      obstacle_range: 1.0
+      raytrace_range: 1.0
+    rolling_window: false
+    track_unknown_space: true
+    transform_tolerance: 0.1
+    subscribe_to_updates: false
+    plugins:
+    - obstacle_layer
+    inflate_unknown: true
+    inflate_around_unknown: false
