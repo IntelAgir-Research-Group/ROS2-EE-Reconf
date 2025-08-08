@@ -1,0 +1,33 @@
+/global_costmap/global_costmap:
+  ros__parameters:
+    update_frequency: 10.0
+    resolution: 0.2
+    rolling_window: false
+    transform_tolerance: 1.0
+    subscribe_to_updates: false
+    track_unknown_space: false
+    inflate_unknknown: false
+    inflate_around_unknown: false
+    plugins: ['static_layer', 'obstacle_layer', 'inflation_layer' ]
+    obstacle_layer:
+      plugin: 'nav2_costmap_2d::ObstacleLayer'
+      enabled: true
+      observation_sources: scan
+      scan:
+        data_type: LaserScan
+        topic: /scan
+        marking: true
+        clearing: true
+        obstacle_max_range: 3.0
+        raytrace_max_range: 3.0
+    inflation_layer:
+      plugin: 'nav2_costmap_2d::InflationLayer'
+      enabled: true
+      inflation_radius: 0.75
+      cost_scaling_factor: 3.0
+      inflate_unknown: false
+      inflate_around_unknown: false
+    static_layer:
+      plugin: 'nav2_costmap_2d::StaticLayer'
+      enabled: true
+      subscribe_to_updates: false

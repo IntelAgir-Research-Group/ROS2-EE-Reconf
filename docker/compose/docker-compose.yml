@@ -67,6 +67,35 @@ services:
       
       command: ros2 run rviz2 rviz2 -d /data/nav2_default_view.rviz --ros-args --remap use_sim_time:=True --remap gui:=True
 
+  rviz-native:
+      # image: michelalbonico/ros:humble-ros-navigation
+      build: .
+      container_name: rviz_native_container
+      stdin_open: true               # docker run -i
+      tty: true                      # docker run -t
+      privileged: true
+      restart: unless-stopped
+      networks:
+        my_custom_network:
+          ipv4_address: 172.28.1.102
+      
+      environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/root/.Xauthority
+      - TURTLEBOT3_MODEL=waffle
+      - ROS_DOMAIN_ID=0
+
+      volumes:
+        - /tmp/.X11-unix:/tmp/.X11-unix:rw
+        - /root/.docker.xauth:/root/.Xauthority:rw
+        - /dev:/dev
+        - /dev/shm:/dev/shm
+        - nav2_data:/data
+      
+      command: ros2 run rviz2 rviz2 --ros-args --remap use_sim_time:=True --remap gui:=True
+
+
   nav2:
       build: .
       container_name: nav2_container
@@ -90,8 +119,17 @@ services:
         - nav2_profiler:/profiler
         - exp_orchestration:/orchestrator
         - packages:/packages
+        - configs:/configs
 
-      command: ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False
+      command: bash -c "
+        source /usr/share/gazebo/setup.bash
+        &&
+        source /packages/setup.bash
+        &&
+        ros2 launch reconfros2 nav2_bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False"
+
+      
+      #ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False param_file:=/configs/nav2_params.yaml
 
   robot-runner:
     image: michelalbonico/ros:humble-ros-base
@@ -118,6 +156,7 @@ services:
       - exp_orchestration:/orchestrator
       - packages:/packages
       - robot-runner:/robot-runner
+      - workspace:/workspace
 
 volumes:
   packages:
@@ -161,6 +200,20 @@ volumes:
       type: none
       o: bind
       device: ${RR_PATH}
+
+  workspace:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/workspace
+
+  configs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/current_config
 
 networks:
   my_custom_network:

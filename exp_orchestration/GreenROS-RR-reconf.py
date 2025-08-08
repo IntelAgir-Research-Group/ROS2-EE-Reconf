@@ -31,7 +31,7 @@ import time
 rl4greenros_path = os.getenv('RL4GreenROS_PATH')
 
 class RobotRunnerConfig:
-    name:                       str             = "greenros_reconf"
+    name:                       str             = "greenros_reconf_world_small"
     required_ros_version:       int             = 2
     required_ros_distro:        str             = any
     operation_type:             OperationType   = OperationType.AUTO
@@ -76,12 +76,11 @@ class RobotRunnerConfig:
         representing each run robot-runner must perform"""
         run_table = RunTableModel(
             factors = [
-                FactorModel("round", range(0,5)),
-                FactorModel("configuration", range(0,20)),
+                FactorModel("round", range(0,3)),
+                # FactorModel("configuration", range(0,20)),
+                FactorModel("configuration", [2,3]),
                 FactorModel("position_goal", [2]),
-                # FactorModel("number_obstacles", [0,1,2]), # Only implemented in 1 map
-                # FactorModel("global",[0,1]), # Not implemented (global_costmap)
-                # FactorModel("local", [0,1]), # Not implemented (local_costmap)
+                FactorModel("number_obstacles", [0,1,2]), # Only implemented in 1 map
                 # FactorModel("map", ['small', 'medium', 'large']) # Not implemented
             ]
             # ,
@@ -103,21 +102,40 @@ class RobotRunnerConfig:
         here as the run is not yet active (BEFORE RUN)"""
         print("before_run() called: setting up the Docker environment")
         self.docker_runner.start_container("gazebo", 1)
-        self.docker_runner.start_container("nav2", 1)
         self.docker_runner.start_container("rviz", 1)
         self.docker_runner.start_container("robot-runner", 1)
 
-        print("Setting robot initial position on Gazebo")
-        self.ros_driver.set_initial_position() # get the initial position from the context
-        
     def start_run(self, context: RobotRunnerContext) -> None:
         """Perform any activity required for starting the run here. 
         Activities before and after starting the run should also be performed here."""
         print("Config.start_run() called!")
+
+        variation = context.run_variation
+ 
+        print('Creating Nav2 configuration file...')
+
+        # number obstacles
+        configuration = variation['configuration']
+        print(f'Configuration: {configuration}')
+        project_folder = os.getenv("RL4GreenROS_PATH")
+        nav2_param_file = f"{project_folder}/current_config/nav2_params.yaml"
+        commands = [
+            f"cat {project_folder}/current_config/default_params.yaml > {nav2_param_file}",
+            f"cat {project_folder}/config/gen_configs/local/config_{configuration}.yaml >> {nav2_param_file}",
+            f"cat {project_folder}/config/gen_configs/global/config_{configuration}.yaml >> {nav2_param_file}",
+        ]
+
+        for cmd in commands:
+            subprocess.run(cmd, shell=True, check=True)
+
+        print('Starting Nav2 with customized configuration')
+        self.docker_runner.start_container("nav2", 1)
+
+        print("Setting robot initial position on Gazebo")
+        self.ros_driver.set_initial_position() # get the initial position from the context
         
         ## FIXED UNTIL ALL PROFILERS ARE RUNNING
-        # Setting up the configuration
-        # self.ros_driver.next_configuration(context)
+        # Setting up obstacles
         # self.ros_driver.next_obstacle(context)
 
     def start_measurement(self, context: RobotRunnerContext) -> None:
@@ -152,8 +170,8 @@ class RobotRunnerConfig:
         
         print("Config.stop_run() called!")
         self.docker_runner.clean_docker_environment()
-        print("Cooling down period of 30 seconds...")
-        time.sleep(180)
+        print("Cooling down period of 60 seconds...")
+        time.sleep(60)
         print("----------------- Run Finished -----------------\n\n")
     
     def populate_run_data(self, context: RobotRunnerContext) -> tuple:

@@ -1,0 +1,44 @@
+running egg_info
+creating ../../build/reconfros2/reconfros2.egg-info
+writing ../../build/reconfros2/reconfros2.egg-info/PKG-INFO
+writing dependency_links to ../../build/reconfros2/reconfros2.egg-info/dependency_links.txt
+writing entry points to ../../build/reconfros2/reconfros2.egg-info/entry_points.txt
+writing requirements to ../../build/reconfros2/reconfros2.egg-info/requires.txt
+writing top-level names to ../../build/reconfros2/reconfros2.egg-info/top_level.txt
+writing manifest file '../../build/reconfros2/reconfros2.egg-info/SOURCES.txt'
+reading manifest file '../../build/reconfros2/reconfros2.egg-info/SOURCES.txt'
+writing manifest file '../../build/reconfros2/reconfros2.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /workspace/build/reconfros2/build
+creating /workspace/build/reconfros2/build/lib
+creating /workspace/build/reconfros2/build/lib/reconfros2
+copying reconfros2/nav_to_pose-bkp.py -> /workspace/build/reconfros2/build/lib/reconfros2
+copying reconfros2/multi_navigation_goals.py -> /workspace/build/reconfros2/build/lib/reconfros2
+copying reconfros2/nav_to_pose_action.py -> /workspace/build/reconfros2/build/lib/reconfros2
+copying reconfros2/add_obstacle.py -> /workspace/build/reconfros2/build/lib/reconfros2
+copying reconfros2/nav_to_pose.py -> /workspace/build/reconfros2/build/lib/reconfros2
+copying reconfros2/echo_initial_pose.py -> /workspace/build/reconfros2/build/lib/reconfros2
+copying reconfros2/initial_pose.py -> /workspace/build/reconfros2/build/lib/reconfros2
+copying reconfros2/__init__.py -> /workspace/build/reconfros2/build/lib/reconfros2
+copying reconfros2/single_navigation_goal.py -> /workspace/build/reconfros2/build/lib/reconfros2
+running install
+/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.
+  warnings.warn(
+running install_lib
+running install_data
+copying launch/nav2_bringup_launch.py -> /workspace/install/reconfros2/share/reconfros2/launch
+running install_egg_info
+removing '/workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/reconfros2/reconfros2.egg-info to /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2-0.0.0-py3.10.egg-info
+running install_scripts
+Installing add_obstacle script to /workspace/install/reconfros2/lib/reconfros2
+Installing initial_pose script to /workspace/install/reconfros2/lib/reconfros2
+Installing multi_navigation_goals script to /workspace/install/reconfros2/lib/reconfros2
+Installing nav_to_pose script to /workspace/install/reconfros2/lib/reconfros2
+Installing nav_to_pose_action script to /workspace/install/reconfros2/lib/reconfros2
+Installing reset_world script to /workspace/install/reconfros2/lib/reconfros2
+Installing respawn_world script to /workspace/install/reconfros2/lib/reconfros2
+Installing single_navigation_goal script to /workspace/install/reconfros2/lib/reconfros2
+Installing spawn_robot script to /workspace/install/reconfros2/lib/reconfros2
+writing list of installed files to '/workspace/build/reconfros2/install.log'
