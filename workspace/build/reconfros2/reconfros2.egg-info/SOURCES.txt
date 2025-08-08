@@ -17,8 +17,6 @@ reconfros2/add_obstacle.py
 reconfros2/echo_initial_pose.py
 reconfros2/initial_pose.py
 reconfros2/multi_navigation_goals.py
-reconfros2/nav_to_pose-bkp.py
-reconfros2/nav_to_pose.py
 reconfros2/nav_to_pose_action.py
 reconfros2/single_navigation_goal.py
 resource/reconfros2

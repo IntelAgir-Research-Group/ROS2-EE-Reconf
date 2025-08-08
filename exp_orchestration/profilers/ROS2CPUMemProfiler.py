@@ -16,7 +16,7 @@ sys.path.append(rr_project)
 
 from ConfigValidator.Config.Models.RobotRunnerContext import RobotRunnerContext
 
-class CPUMemProfiler:
+class ROS2CPUMemProfiler:
 
     stop_event = Event()
     __pid = None
@@ -25,9 +25,6 @@ class CPUMemProfiler:
     def __init__(self, name, file):
         self.file_name = file
         #self.__pid = self.get_pid_by_name(name)
-
-    def __init__(self):
-        pass
 
     def get_pid_ps(self, process_name:str, clients: int):
         try:
@@ -92,9 +89,8 @@ class CPUMemProfiler:
         except psutil.NoSuchProcess:
             return None
 
-    def start_profiler(self, context, factors: list):
+    def start_profiler(self, context):
         thread = Thread(target=self.profiling, args=(context,))
-        self.factors = factors
         thread.start()
 
     def get_variation(self, context: RobotRunnerContext):
@@ -105,7 +101,7 @@ class CPUMemProfiler:
         variation = context.run_variation
 
         variation_factor_values: list = list(map(
-            variation.get, ['__run_id']+self.factors
+            variation.get, ['__run_id']
         ))
 
         return (variation_factor_values)

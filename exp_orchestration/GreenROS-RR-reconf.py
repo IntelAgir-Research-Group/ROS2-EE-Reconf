@@ -18,7 +18,7 @@ from exp_orchestration.drivers.DockerRunner import DockerRunner
 from exp_orchestration.drivers.ROSDriver import ROSDriver
 
 # Resource Profilers
-from exp_orchestration.profilers.CPUMemProfiler import CPUMemProfiler
+from exp_orchestration.profilers.ROS2CPUMemProfiler import ROS2CPUMemProfiler
 #from Plugins.Profilers.DockerCPUProfiler import DockerCPUProfiler
 #from Plugins.Profilers.DockerMemProfiler import DockerMemProfiler
 #from Plugins.Profilers.DockerPowerProfiler import DockerPowerProfiler
@@ -42,7 +42,7 @@ class RobotRunnerConfig:
 
     docker_runner: DockerRunner
     ros_driver: ROSDriver
-    cpu_mem_profiler: CPUMemProfiler
+    cpu_mem_profiler: ROS2CPUMemProfiler
     nav2_profiler: None # TO BE IMPLEMENTED
 
     # Dynamic configurations can be one-time satisfied here before the program takes the config as-is
@@ -55,7 +55,7 @@ class RobotRunnerConfig:
         else:
             self.docker_runner = DockerRunner()
             self.ros_driver = ROSDriver()
-            self.cpu_mem_profiler = CPUMemProfiler()
+            self.cpu_mem_profiler = ROS2CPUMemProfiler('nav2_container','docker/data/cpu-mem.csv')
 
             EventSubscriptionController.subscribe_to_multiple_events([ 
                 (RobotRunnerEvents.BEFORE_EXPERIMENT,   self.before_experiment), 
@@ -141,7 +141,7 @@ class RobotRunnerConfig:
     def start_measurement(self, context: RobotRunnerContext) -> None:
         """Perform any activity required for starting measurements."""
         print("Config.start_measurement called!")
-        # self.cpu_mem_profiler.start_profiler("nav2_container","cpu-mem.csv", context)
+        self.cpu_mem_profiler.start_profiler(context)
 
     def launch_mission(self, context: RobotRunnerContext) -> None:
         """Perform any activity interacting with the robotic
@@ -153,16 +153,21 @@ class RobotRunnerConfig:
     def stop_measurement(self, context: RobotRunnerContext) -> None:
         """Perform any activity here required for stopping measurements."""
         print("Config.stop_measurement called!")
-        # self.cpu_mem_profiler.stop_profiler()
+        self.cpu_mem_profiler.stop_profiler()
         """
             Dumping measurements: Improve the code later
         """
-        # print("Copying the power consumption data to the results folder")
-        # variation = context.run_variation
-        # run_id = variation['__run_id']
-        # dest_cpu_file = f"~/Documents/experiments/greenros_reconf/{run_id}/cpu_mem.csv"
-        # command_cpu = f"cp {rl4greenros_path}/cpu-mem.csv {dest_cpu_file}"
-        # subprocess.run(command_cpu, shell=True)
+        print("Copying the power consumption data to the results folder")
+        variation = context.run_variation
+        run_id = variation['__run_id']
+        # Nav2
+        dest_nav2_file = f"~/Documents/experiments/{self.name}/{run_id}/nav2_performance.csv"
+        command_nav2 = f"cp {rl4greenros_path}/docker/data/nav2_performance.csv {dest_nav2_file}"
+        subprocess.run(command_nav2, shell=True)
+        # CPU/MEM
+        dest_cpu_file = f"~/Documents/experiments/{self.name}/{run_id}/cpu-mem.csv"
+        command_cpu = f"cp {rl4greenros_path}/docker/data/cpu-mem.csv {dest_cpu_file}"
+        subprocess.run(command_cpu, shell=True)
 
     def stop_run(self, context: RobotRunnerContext) -> None:
         """Perform any activity required for stopping the run here.
