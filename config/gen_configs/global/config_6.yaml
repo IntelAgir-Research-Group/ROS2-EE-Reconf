@@ -1,26 +1,25 @@
-/global_costmap/global_costmap:
-  ros__parameters:
-    update_frequency: 1.0
-    resolution: 0.1
-    rolling_window: false
-    transform_tolerance: 0.5
-    subscribe_to_updates: false
-    track_unknown_space: false
-    inflate_unknknown: false
-    inflate_around_unknown: false
-    plugins:
-    - static_layer
-    - inflation_layer
-    width: 3
-    height: 2
-    inflation_layer:
-      plugin: nav2_costmap_2d::InflationLayer
-      enabled: true
-      inflation_radius: 0.5
-      cost_scaling_factor: 3.0
-      inflate_unknown: false
-      inflate_around_unknown: false
-    static_layer:
-      plugin: nav2_costmap_2d::StaticLayer
-      enabled: true
-      subscribe_to_updates: false
+global_costmap:
+  global_costmap:
+    ros__parameters:
+      update_frequency: 1.0 #
+      publish_frequency: 1.0
+      global_frame: map
+      robot_base_frame: base_link
+      use_sim_time: True
+      robot_radius: 0.22
+      resolution: 0.1 #
+      transform_tolerance: 0.5 #
+      track_unknown_space: True # false
+      plugins: ["static_layer", "inflation_layer"]
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        enabled: true
+        map_subscribe_transient_local: True
+        subscribe_to_updates: True #
+      inflation_layer:
+        plugin: "nav2_costmap_2d::InflationLayer"
+        cost_scaling_factor: 3.0 #
+        inflation_radius: 0.5 #
+        inflate_unknown: True #
+        inflate_around_unknown: True # 
+      always_send_full_costmap: True

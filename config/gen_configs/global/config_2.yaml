@@ -10,7 +10,6 @@ global_costmap:
       resolution: 0.2 #
       transform_tolerance: 1.0 #
       track_unknown_space: true # false
-      inflate_unknknown: true # false
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
