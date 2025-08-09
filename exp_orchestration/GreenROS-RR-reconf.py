@@ -76,11 +76,11 @@ class RobotRunnerConfig:
         representing each run robot-runner must perform"""
         run_table = RunTableModel(
             factors = [
-                FactorModel("round", range(0,3)),
+                FactorModel("round", range(0,10)),
                 # FactorModel("configuration", range(0,20)),
-                FactorModel("configuration", [2,3]),
+                FactorModel("configuration", [2]),
                 FactorModel("position_goal", [2]),
-                FactorModel("number_obstacles", [0,1,2]), # Only implemented in 1 map
+                # FactorModel("number_obstacles", [0,1,2]), # Only implemented in 1 map
                 # FactorModel("map", ['small', 'medium', 'large']) # Not implemented
             ]
             # ,
