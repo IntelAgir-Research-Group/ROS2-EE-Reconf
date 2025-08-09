@@ -78,7 +78,7 @@ class RobotRunnerConfig:
             factors = [
                 FactorModel("round", range(0,10)),
                 # FactorModel("configuration", range(0,20)),
-                FactorModel("configuration", [2]),
+                FactorModel("configuration", [0]),
                 FactorModel("position_goal", [2]),
                 # FactorModel("number_obstacles", [0,1,2]), # Only implemented in 1 map
                 # FactorModel("map", ['small', 'medium', 'large']) # Not implemented

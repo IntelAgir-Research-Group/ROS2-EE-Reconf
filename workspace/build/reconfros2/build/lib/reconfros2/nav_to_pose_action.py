@@ -18,7 +18,7 @@ class NavigateToPoseActionClient(Node):
 
         # Params
         self.declare_parameter('nav_goal', 0)
-        self.declare_parameter('timeout_sec', 60)  # make timeout configurable
+        self.declare_parameter('timeout_sec', 120)  # make timeout configurable
         self.timeout_sec = self.get_parameter('timeout_sec').get_parameter_value().integer_value
 
         nav_goal = self.get_parameter('nav_goal').get_parameter_value().integer_value
