@@ -76,9 +76,9 @@ class RobotRunnerConfig:
         representing each run robot-runner must perform"""
         run_table = RunTableModel(
             factors = [
-                FactorModel("round", range(0,10)),
+                FactorModel("round", range(0,3)),
                 # FactorModel("configuration", range(0,20)),
-                FactorModel("configuration", [0]),
+                FactorModel("configuration", range(0,20)),
                 FactorModel("position_goal", [2]),
                 # FactorModel("number_obstacles", [0,1,2]), # Only implemented in 1 map
                 # FactorModel("map", ['small', 'medium', 'large']) # Not implemented
@@ -175,6 +175,10 @@ class RobotRunnerConfig:
         
         print("Config.stop_run() called!")
         self.docker_runner.clean_docker_environment()
+
+        ## bash clean-containers
+
+
         print("Cooling down period of 60 seconds...")
         time.sleep(60)
         print("----------------- Run Finished -----------------\n\n")

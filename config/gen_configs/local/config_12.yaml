@@ -18,4 +18,4 @@ local_costmap:
         map_subscribe_transient_local: True
         transform_tolerance: 0.1 #
         subscribe_to_updates: True # If no obstacle avoidance = True (fixed).
-      always_send_full_costmap: True #
+      always_send_full_costmap: True

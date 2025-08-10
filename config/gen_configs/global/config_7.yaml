@@ -37,3 +37,4 @@ global_costmap:
         inflate_unknown: False #
         inflate_around_unknown: True # 
       always_send_full_costmap: True
+
