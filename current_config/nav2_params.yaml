@@ -381,7 +381,7 @@ local_costmap:
           data_type: "LaserScan"
           raytrace_max_range: 1.0 #
           raytrace_min_range: 0.0
-          obstacle_max_range: 3.0 #
+          obstacle_max_range: 1.0 #
           obstacle_min_range: 0.0
       always_send_full_costmap: True
 global_costmap:
@@ -394,7 +394,7 @@ global_costmap:
       use_sim_time: True
       robot_radius: 0.22
       resolution: 0.2 #
-      transform_tolerance: 0.1 #
+      transform_tolerance: 0.5 #
       track_unknown_space: True # false
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       obstacle_layer:
@@ -409,7 +409,7 @@ global_costmap:
           data_type: "LaserScan"
           raytrace_max_range: 1.0 #
           raytrace_min_range: 0.0
-          obstacle_max_range: 3.0 #
+          obstacle_max_range: 1.0 #
           obstacle_min_range: 0.0
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
