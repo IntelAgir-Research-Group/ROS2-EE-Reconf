@@ -1,0 +1,21 @@
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      update_frequency: 1.0 #
+      publish_frequency: 2.0
+      global_frame: odom
+      robot_base_frame: base_link
+      use_sim_time: True
+      rolling_window: True # Always True / Fixed
+      width: 2 #
+      height: 1 #
+      resolution: 0.2 #
+      robot_radius: 0.22 # Fixed
+      track_unknown_space: True # 
+      plugins: ["static_layer"]
+      static_layer:
+        plugin: "nav2_costmap_2d::StaticLayer"
+        map_subscribe_transient_local: True
+        transform_tolerance: 1.0 #
+        subscribe_to_updates: True # If no obstacle avoidance = True (fixed).
+      always_send_full_costmap: True

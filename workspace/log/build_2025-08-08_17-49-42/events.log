@@ -1,0 +1,63 @@
+[0.000000] (-) TimerEvent: {}
+[0.000120] (reconfros2) JobQueued: {'identifier': 'reconfros2', 'dependencies': OrderedDict()}
+[0.000150] (reconfros2) JobStarted: {'identifier': 'reconfros2'}
+[0.099224] (-) TimerEvent: {}
+[0.199522] (-) TimerEvent: {}
+[0.299807] (-) TimerEvent: {}
+[0.400111] (-) TimerEvent: {}
+[0.500361] (-) TimerEvent: {}
+[0.600585] (-) TimerEvent: {}
+[0.700820] (-) TimerEvent: {}
+[0.801091] (-) TimerEvent: {}
+[0.875670] (reconfros2) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/reconfros2', 'build', '--build-base', '/workspace/build/reconfros2/build', 'install', '--record', '/workspace/build/reconfros2/install.log', '--single-version-externally-managed'], 'cwd': '/workspace/src/reconfros2', 'env': {'HOSTNAME': '4f95f049a3bc', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/usr/lib/x86_64-linux-gnu/gazebo-11/plugins:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/root', 'OLDPWD': '/', 'ROS_PYTHON_VERSION': '3', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'NVIDIA_DRIVER_CAPABILITIES': 'all', 'TERM': 'xterm', 'GAZEBO_MODEL_PATH': '/opt/ros/humble/share/turtlebot3_gazebo/models', 'ROS_LOCALHOST_ONLY': '0', 'QT_X11_NO_MITSHM': '1', 'PATH': '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'DISPLAY': '172.17.0.1:1', 'LANG': 'C.UTF-8', 'XAUTHORITY': '/root/.Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'ROS_DOMAIN_ID': '0', 'AMENT_PREFIX_PATH': '/opt/ros/humble', 'PWD': '/workspace/build/reconfros2', 'TURTLEBOT3_MODEL': 'waffle', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/workspace/build/reconfros2/prefix_override:/workspace/install/reconfros2/lib/python3.10/site-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'NVIDIA_VISIBLE_DEVICES': 'all', 'COLCON': '1'}, 'shell': False}
+[0.901210] (-) TimerEvent: {}
+[1.001469] (-) TimerEvent: {}
+[1.099783] (reconfros2) StdoutLine: {'line': b'running egg_info\n'}
+[1.100303] (reconfros2) StdoutLine: {'line': b'creating ../../build/reconfros2/reconfros2.egg-info\n'}
+[1.100443] (reconfros2) StdoutLine: {'line': b'writing ../../build/reconfros2/reconfros2.egg-info/PKG-INFO\n'}
+[1.100687] (reconfros2) StdoutLine: {'line': b'writing dependency_links to ../../build/reconfros2/reconfros2.egg-info/dependency_links.txt\n'}
+[1.100812] (reconfros2) StdoutLine: {'line': b'writing entry points to ../../build/reconfros2/reconfros2.egg-info/entry_points.txt\n'}
+[1.100922] (reconfros2) StdoutLine: {'line': b'writing requirements to ../../build/reconfros2/reconfros2.egg-info/requires.txt\n'}
+[1.101018] (reconfros2) StdoutLine: {'line': b'writing top-level names to ../../build/reconfros2/reconfros2.egg-info/top_level.txt\n'}
+[1.101110] (reconfros2) StdoutLine: {'line': b"writing manifest file '../../build/reconfros2/reconfros2.egg-info/SOURCES.txt'\n"}
+[1.101534] (-) TimerEvent: {}
+[1.102715] (reconfros2) StdoutLine: {'line': b"reading manifest file '../../build/reconfros2/reconfros2.egg-info/SOURCES.txt'\n"}
+[1.103420] (reconfros2) StdoutLine: {'line': b"writing manifest file '../../build/reconfros2/reconfros2.egg-info/SOURCES.txt'\n"}
+[1.103572] (reconfros2) StdoutLine: {'line': b'running build\n'}
+[1.103701] (reconfros2) StdoutLine: {'line': b'running build_py\n'}
+[1.103786] (reconfros2) StdoutLine: {'line': b'creating /workspace/build/reconfros2/build\n'}
+[1.103907] (reconfros2) StdoutLine: {'line': b'creating /workspace/build/reconfros2/build/lib\n'}
+[1.103981] (reconfros2) StdoutLine: {'line': b'creating /workspace/build/reconfros2/build/lib/reconfros2\n'}
+[1.104056] (reconfros2) StdoutLine: {'line': b'copying reconfros2/nav_to_pose-bkp.py -> /workspace/build/reconfros2/build/lib/reconfros2\n'}
+[1.104172] (reconfros2) StdoutLine: {'line': b'copying reconfros2/multi_navigation_goals.py -> /workspace/build/reconfros2/build/lib/reconfros2\n'}
+[1.104239] (reconfros2) StdoutLine: {'line': b'copying reconfros2/nav_to_pose_action.py -> /workspace/build/reconfros2/build/lib/reconfros2\n'}
+[1.104313] (reconfros2) StdoutLine: {'line': b'copying reconfros2/add_obstacle.py -> /workspace/build/reconfros2/build/lib/reconfros2\n'}
+[1.104416] (reconfros2) StdoutLine: {'line': b'copying reconfros2/nav_to_pose.py -> /workspace/build/reconfros2/build/lib/reconfros2\n'}
+[1.104532] (reconfros2) StdoutLine: {'line': b'copying reconfros2/echo_initial_pose.py -> /workspace/build/reconfros2/build/lib/reconfros2\n'}
+[1.104608] (reconfros2) StdoutLine: {'line': b'copying reconfros2/initial_pose.py -> /workspace/build/reconfros2/build/lib/reconfros2\n'}
+[1.104707] (reconfros2) StdoutLine: {'line': b'copying reconfros2/__init__.py -> /workspace/build/reconfros2/build/lib/reconfros2\n'}
+[1.104810] (reconfros2) StdoutLine: {'line': b'copying reconfros2/single_navigation_goal.py -> /workspace/build/reconfros2/build/lib/reconfros2\n'}
+[1.104904] (reconfros2) StdoutLine: {'line': b'running install\n'}
+[1.106438] (reconfros2) StderrLine: {'line': b'/usr/lib/python3/dist-packages/setuptools/command/install.py:34: SetuptoolsDeprecationWarning: setup.py install is deprecated. Use build and pip and other standards-based tools.\n'}
+[1.106667] (reconfros2) StderrLine: {'line': b'  warnings.warn(\n'}
+[1.107205] (reconfros2) StdoutLine: {'line': b'running install_lib\n'}
+[1.111555] (reconfros2) StdoutLine: {'line': b'running install_data\n'}
+[1.116054] (reconfros2) StdoutLine: {'line': b'copying launch/nav2_bringup_launch.py -> /workspace/install/reconfros2/share/reconfros2/launch\n'}
+[1.116519] (reconfros2) StdoutLine: {'line': b'running install_egg_info\n'}
+[1.119335] (reconfros2) StdoutLine: {'line': b"removing '/workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2-0.0.0-py3.10.egg-info' (and everything under it)\n"}
+[1.119966] (reconfros2) StdoutLine: {'line': b'Copying ../../build/reconfros2/reconfros2.egg-info to /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2-0.0.0-py3.10.egg-info\n'}
+[1.121263] (reconfros2) StdoutLine: {'line': b'running install_scripts\n'}
+[1.146918] (reconfros2) StdoutLine: {'line': b'Installing add_obstacle script to /workspace/install/reconfros2/lib/reconfros2\n'}
+[1.147372] (reconfros2) StdoutLine: {'line': b'Installing initial_pose script to /workspace/install/reconfros2/lib/reconfros2\n'}
+[1.147622] (reconfros2) StdoutLine: {'line': b'Installing multi_navigation_goals script to /workspace/install/reconfros2/lib/reconfros2\n'}
+[1.147837] (reconfros2) StdoutLine: {'line': b'Installing nav_to_pose script to /workspace/install/reconfros2/lib/reconfros2\n'}
+[1.148011] (reconfros2) StdoutLine: {'line': b'Installing nav_to_pose_action script to /workspace/install/reconfros2/lib/reconfros2\n'}
+[1.148157] (reconfros2) StdoutLine: {'line': b'Installing reset_world script to /workspace/install/reconfros2/lib/reconfros2\n'}
+[1.148335] (reconfros2) StdoutLine: {'line': b'Installing respawn_world script to /workspace/install/reconfros2/lib/reconfros2\n'}
+[1.148513] (reconfros2) StdoutLine: {'line': b'Installing single_navigation_goal script to /workspace/install/reconfros2/lib/reconfros2\n'}
+[1.148675] (reconfros2) StdoutLine: {'line': b'Installing spawn_robot script to /workspace/install/reconfros2/lib/reconfros2\n'}
+[1.149115] (reconfros2) StdoutLine: {'line': b"writing list of installed files to '/workspace/build/reconfros2/install.log'\n"}
+[1.173349] (reconfros2) CommandEnded: {'returncode': 0}
+[1.201621] (-) TimerEvent: {}
+[1.226912] (reconfros2) JobEnded: {'identifier': 'reconfros2', 'rc': 0}
+[1.228579] (-) EventReactorShutdown: {}

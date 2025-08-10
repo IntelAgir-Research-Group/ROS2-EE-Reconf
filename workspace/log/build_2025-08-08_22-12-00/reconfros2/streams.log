@@ -1,0 +1,32 @@
+[0.765s] Invoking command in '/workspace/src/reconfros2': PYTHONPATH=/workspace/build/reconfros2/prefix_override:/workspace/install/reconfros2/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/reconfros2 build --build-base /workspace/build/reconfros2/build install --record /workspace/build/reconfros2/install.log --single-version-externally-managed install_data
+[1.043s] running egg_info
+[1.044s] writing ../../build/reconfros2/reconfros2.egg-info/PKG-INFO
+[1.044s] writing dependency_links to ../../build/reconfros2/reconfros2.egg-info/dependency_links.txt
+[1.044s] writing entry points to ../../build/reconfros2/reconfros2.egg-info/entry_points.txt
+[1.044s] writing requirements to ../../build/reconfros2/reconfros2.egg-info/requires.txt
+[1.044s] writing top-level names to ../../build/reconfros2/reconfros2.egg-info/top_level.txt
+[1.047s] reading manifest file '../../build/reconfros2/reconfros2.egg-info/SOURCES.txt'
+[1.049s] writing manifest file '../../build/reconfros2/reconfros2.egg-info/SOURCES.txt'
+[1.049s] running build
+[1.049s] running build_py
+[1.050s] copying reconfros2/initial_pose.py -> /workspace/build/reconfros2/build/lib/reconfros2
+[1.051s] running install
+[1.052s] running install_lib
+[1.053s] copying /workspace/build/reconfros2/build/lib/reconfros2/initial_pose.py -> /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2
+[1.055s] byte-compiling /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/initial_pose.py to initial_pose.cpython-310.pyc
+[1.058s] running install_data
+[1.058s] running install_egg_info
+[1.061s] removing '/workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2-0.0.0-py3.10.egg-info' (and everything under it)
+[1.062s] Copying ../../build/reconfros2/reconfros2.egg-info to /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2-0.0.0-py3.10.egg-info
+[1.063s] running install_scripts
+[1.093s] Installing add_obstacle script to /workspace/install/reconfros2/lib/reconfros2
+[1.094s] Installing initial_pose script to /workspace/install/reconfros2/lib/reconfros2
+[1.094s] Installing multi_navigation_goals script to /workspace/install/reconfros2/lib/reconfros2
+[1.095s] Installing nav_to_pose script to /workspace/install/reconfros2/lib/reconfros2
+[1.095s] Installing nav_to_pose_action script to /workspace/install/reconfros2/lib/reconfros2
+[1.095s] Installing reset_world script to /workspace/install/reconfros2/lib/reconfros2
+[1.095s] Installing respawn_world script to /workspace/install/reconfros2/lib/reconfros2
+[1.095s] Installing single_navigation_goal script to /workspace/install/reconfros2/lib/reconfros2
+[1.095s] Installing spawn_robot script to /workspace/install/reconfros2/lib/reconfros2
+[1.095s] writing list of installed files to '/workspace/build/reconfros2/install.log'
+[1.135s] Invoked command in '/workspace/src/reconfros2' returned '0': PYTHONPATH=/workspace/build/reconfros2/prefix_override:/workspace/install/reconfros2/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated setup.py egg_info --egg-base ../../build/reconfros2 build --build-base /workspace/build/reconfros2/build install --record /workspace/build/reconfros2/install.log --single-version-externally-managed install_data

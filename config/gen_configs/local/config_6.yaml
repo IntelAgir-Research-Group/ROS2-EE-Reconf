@@ -1,0 +1,27 @@
+local_costmap:
+  local_costmap:
+    ros__parameters:
+      update_frequency: 1.0 #
+      publish_frequency: 2.0
+      global_frame: odom
+      robot_base_frame: base_link
+      use_sim_time: True
+      rolling_window: True # Always True (otherwise the robot stucks)
+      width: 3 #
+      height: 2 #
+      resolution: 0.1 #
+      robot_radius: 0.22 
+      track_unknown_space: True #
+      plugins: ["obstacle_layer"]
+      obstacle_layer:
+        plugin: "nav2_costmap_2d::ObstacleLayer"
+        enabled: true
+        observation_sources: scan
+        scan:
+          data_type: LaserScan
+          topic: /scan
+          marking: true
+          clearing: true
+          obstacle_max_range: 3.0 #
+          raytrace_max_range: 2.0 #
+      always_send_full_costmap: True
