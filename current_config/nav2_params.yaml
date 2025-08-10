@@ -356,8 +356,8 @@ local_costmap:
       robot_base_frame: base_link
       use_sim_time: True
       rolling_window: True # Always True (otherwise the robot stucks)
-      width: 1 #
-      height: 1 #
+      width: 2 #
+      height: 3 #
       resolution: 0.2 #
       robot_radius: 0.22 # 
       track_unknown_space: True #
@@ -366,8 +366,8 @@ local_costmap:
         plugin: "nav2_costmap_2d::VoxelLayer"
         enabled: true
         z_voxels: 10 #
-        unknown_threshold: 15 #
-        mark_threshold: 2  #
+        unknown_threshold: 5 #
+        mark_threshold: 1  #
         publish_voxel_map: True #
         origin_z: 0.0
         z_resolution: 0.05
@@ -379,9 +379,9 @@ local_costmap:
           clearing: True
           marking: True
           data_type: "LaserScan"
-          raytrace_max_range: 2.0 #
+          raytrace_max_range: 1.0 #
           raytrace_min_range: 0.0
-          obstacle_max_range: 1.0 #
+          obstacle_max_range: 3.0 #
           obstacle_min_range: 0.0
       always_send_full_costmap: True
 global_costmap:
@@ -407,9 +407,9 @@ global_costmap:
           clearing: True
           marking: True
           data_type: "LaserScan"
-          raytrace_max_range: 2.0 #
+          raytrace_max_range: 1.0 #
           raytrace_min_range: 0.0
-          obstacle_max_range: 1.0 #
+          obstacle_max_range: 3.0 #
           obstacle_min_range: 0.0
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
@@ -418,8 +418,8 @@ global_costmap:
         subscribe_to_updates: True #
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
-        cost_scaling_factor: 3.0 #
-        inflation_radius: 0.35 #
+        cost_scaling_factor: 1.0 #
+        inflation_radius: 0.75 #
         inflate_unknown: True #
         inflate_around_unknown: False # 
       always_send_full_costmap: True

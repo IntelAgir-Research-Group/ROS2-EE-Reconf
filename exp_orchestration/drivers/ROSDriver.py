@@ -69,7 +69,7 @@ class ROSDriver:
         # Getting next position
         next_position = int(variation['position_goal'])
         # command = f"source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 nav_to_pose --ros-args -p nav_goal:={next_position}"
-        command = f"source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 nav_to_pose_action --ros-args -p nav_goal:={next_position} -p timeout_sec:=180"
+        command = f"source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 nav_to_pose_action --ros-args -p nav_goal:={next_position} -p timeout_sec:=200"
         self.exec_docker_command(command)
 
     def next_obstacle(self, context: RobotRunnerContext): # implement obstacles at the preset position

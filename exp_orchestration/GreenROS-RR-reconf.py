@@ -176,7 +176,8 @@ class RobotRunnerConfig:
         self.docker_runner.clean_docker_environment()
 
         ## bash clean-containers
-
+        command_clean_containers = f"bash {rl4greenros_path}/clean-containers.sh"
+        subprocess.run(command_clean_containers, shell=True)
 
         print("Cooling down period of 30 seconds...")
         time.sleep(30)

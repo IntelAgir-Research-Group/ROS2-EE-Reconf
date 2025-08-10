@@ -49,6 +49,8 @@ class NavigateToPoseActionClient(Node):
         self.goal_handle = future.result()
         if not self.goal_handle.accepted:
             self.get_logger().info('Goal rejected :(')
+            cancel_future = self.goal_handle.cancel_goal_async()
+            cancel_future.add_done_callback(self._on_cancel_done)
             return
 
         self.get_logger().info('Goal accepted :)')
