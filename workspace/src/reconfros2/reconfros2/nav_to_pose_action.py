@@ -132,7 +132,12 @@ class NavigateToPoseActionClient(Node):
 
     def send_goal(self, x_pos, y_pos):
         self.get_logger().info('Waiting for action server...')
-        self._action_client.wait_for_server()
+        if not self._action_client.wait_for_server(timeout_sec=10.0):
+            self.get_logger().error("NavigateToPose action server not available after waiting")
+            self.destroy_node()
+            rclpy.shutdown()
+            return
+        # self._action_client.wait_for_server()
 
         self.get_logger().info('Sending goal request...')
         goal_msg = NavigateToPose.Goal()
