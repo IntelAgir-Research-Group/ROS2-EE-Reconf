@@ -140,7 +140,7 @@ class RobotRunnerConfig:
     def start_measurement(self, context: RobotRunnerContext) -> None:
         """Perform any activity required for starting measurements."""
         print("Config.start_measurement called!")
-        self.cpu_mem_profiler.start_profiler(context)
+        # self.cpu_mem_profiler.start_profiler(context)
 
     def launch_mission(self, context: RobotRunnerContext) -> None:
         """Perform any activity interacting with the robotic
@@ -164,9 +164,9 @@ class RobotRunnerConfig:
         command_nav2 = f"cp {rl4greenros_path}/docker/data/nav2_performance.csv {dest_nav2_file}"
         subprocess.run(command_nav2, shell=True)
         # CPU/MEM
-        dest_cpu_file = f"~/Documents/experiments/{self.name}/{run_id}/cpu-mem.csv"
-        command_cpu = f"cp {rl4greenros_path}/docker/data/cpu-mem.csv {dest_cpu_file}"
-        subprocess.run(command_cpu, shell=True)
+        # dest_cpu_file = f"~/Documents/experiments/{self.name}/{run_id}/cpu-mem.csv"
+        # command_cpu = f"cp {rl4greenros_path}/docker/data/cpu-mem.csv {dest_cpu_file}"
+        # subprocess.run(command_cpu, shell=True)
 
     def stop_run(self, context: RobotRunnerContext) -> None:
         """Perform any activity required for stopping the run here.
