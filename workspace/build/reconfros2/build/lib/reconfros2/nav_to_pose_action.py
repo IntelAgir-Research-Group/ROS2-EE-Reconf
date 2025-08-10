@@ -1,11 +1,14 @@
 import sys
 import time
 import csv
+import os
+import math
 import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
 from nav2_msgs.action import NavigateToPose
 from action_msgs.msg import GoalStatus
+from nav_msgs.msg import Odometry
 
 class NavigateToPoseActionClient(Node):
     feedback = None
@@ -16,10 +19,14 @@ class NavigateToPoseActionClient(Node):
         super().__init__('rl4greenros_action_client')
         self._action_client = ActionClient(self, NavigateToPose, 'navigate_to_pose')
 
-        # Params
+        # --- Params ---
         self.declare_parameter('nav_goal', 0)
-        self.declare_parameter('timeout_sec', 120)  # make timeout configurable
+        self.declare_parameter('timeout_sec', 120)
+        self.declare_parameter('odom_topic', '/odometry/filtered')
+        self.declare_parameter('max_step', 1.0)  # meters, to ignore pose jumps
         self.timeout_sec = self.get_parameter('timeout_sec').get_parameter_value().integer_value
+        self.odom_topic = self.get_parameter('odom_topic').get_parameter_value().string_value
+        self.max_step = self.get_parameter('max_step').get_parameter_value().double_value
 
         nav_goal = self.get_parameter('nav_goal').get_parameter_value().integer_value
         self.get_logger().info(f'nav_goal value: {nav_goal} | timeout: {self.timeout_sec}s')
@@ -39,12 +46,38 @@ class NavigateToPoseActionClient(Node):
             return
         self.x_pos, self.y_pos = navigation_coords
 
-        # State for timeout
+        # --- Timeout state ---
         self.goal_handle = None
         self.goal_start_time = None
         self.timeout_timer = None
         self.timed_out = False
 
+        # --- Distance tracking state ---
+        self._prev_xy = None
+        self._distance_m = 0.0
+        self.create_subscription(Odometry, self.odom_topic, self._on_odom, 50)
+
+        # CSV path (same file, now with distance)
+        self.csv_path = '/data/nav2_performance.csv'
+
+    # ===== Distance helpers =====
+    def _on_odom(self, msg: Odometry):
+        x = msg.pose.pose.position.x
+        y = msg.pose.pose.position.y
+        if self._prev_xy is not None:
+            dx = x - self._prev_xy[0]
+            dy = y - self._prev_xy[1]
+            step = math.hypot(dx, dy)
+            # ignore big jumps from relocalization/initial pose
+            if step < self.max_step:
+                self._distance_m += step
+        self._prev_xy = (x, y)
+
+    def _reset_distance(self):
+        self._prev_xy = None
+        self._distance_m = 0.0
+
+    # ===== Nav2 action flow =====
     def goal_response_callback(self, future):
         self.goal_handle = future.result()
         if not self.goal_handle.accepted:
@@ -72,13 +105,11 @@ class NavigateToPoseActionClient(Node):
             if self.goal_handle:
                 cancel_future = self.goal_handle.cancel_goal_async()
                 cancel_future.add_done_callback(self._on_cancel_done)
-            # stop the timer so we don't fire again
             if self.timeout_timer is not None:
                 self.timeout_timer.cancel()
 
     def _on_cancel_done(self, _):
-        # Compute metrics for timeout case
-        # Prefer Nav2’s feedback.navigation_time if we have any; else wall-clock elapsed
+        # Prefer feedback-derived nav time if we have any; else wall time
         if self.feedback is not None:
             navigation_time = int(self.feedback.feedback.navigation_time.sec)
             recoveries = int(self.feedback.feedback.number_of_recoveries)
@@ -87,7 +118,7 @@ class NavigateToPoseActionClient(Node):
             recoveries = 0
 
         success = 0  # timeout -> fail
-        self._write_results(success, navigation_time, recoveries, note='timeout')
+        self._write_results(success, navigation_time, recoveries, self._distance_m, note='timeout')
         self.get_logger().info("Results saved (timeout). Shutting down.")
         rclpy.shutdown()
 
@@ -95,15 +126,13 @@ class NavigateToPoseActionClient(Node):
         self.feedback = feedback
 
     def get_result_callback(self, future):
-        # If we already handled timeout, ignore the late result
         if self.timed_out:
-            return
+            return  # already handled
 
         result = future.result().result
         status = future.result().status
         success = 1 if status == GoalStatus.STATUS_SUCCEEDED else 0
 
-        # Fallbacks if no feedback received
         if self.feedback is not None:
             navigation_time = int(self.feedback.feedback.navigation_time.sec)
             recoveries = int(self.feedback.feedback.number_of_recoveries)
@@ -113,22 +142,23 @@ class NavigateToPoseActionClient(Node):
 
         if success:
             self.get_logger().info('Goal succeeded!')
-            self.get_logger().info(f'Navigation time: {navigation_time}')
-            self.get_logger().info(f'Recoveries: {recoveries}')
+            self.get_logger().info(f'Navigation time: {navigation_time}s, Recoveries: {recoveries}')
         else:
             self.get_logger().info('Goal failed or canceled')
 
-        self._write_results(success, navigation_time, recoveries, note='result')
+        self._write_results(success, navigation_time, recoveries, self._distance_m, note='result')
         rclpy.shutdown()
 
-    def _write_results(self, success, navigation_time, recoveries, note=''):
-        filename = '/data/nav2_performance.csv'
-        data = [[success, navigation_time, recoveries]]
-        with open(filename, 'w', newline='') as f:
+    def _write_results(self, success, navigation_time, recoveries, distance_m, note=''):
+        # Append to CSV, create header once
+        header = ['success', 'navigation_time', 'recoveries', 'distance_m']
+        new_file = not os.path.exists(self.csv_path) or os.path.getsize(self.csv_path) == 0
+        with open(self.csv_path, 'a', newline='') as f:
             writer = csv.writer(f)
-            writer.writerow(['success', 'navigation_time', 'recoveries'])
-            writer.writerows(data)
-        self.get_logger().info(f'Results ({note}) saved to {filename}')
+            if new_file:
+                writer.writerow(header)
+            writer.writerow([success, navigation_time, recoveries, round(distance_m, 4)])
+        self.get_logger().info(f'Results ({note}) saved to {self.csv_path}')
 
     def send_goal(self, x_pos, y_pos):
         self.get_logger().info('Waiting for action server...')
@@ -137,7 +167,9 @@ class NavigateToPoseActionClient(Node):
             self.destroy_node()
             rclpy.shutdown()
             return
-        # self._action_client.wait_for_server()
+
+        # Reset distance for this run
+        self._reset_distance()
 
         self.get_logger().info('Sending goal request...')
         goal_msg = NavigateToPose.Goal()

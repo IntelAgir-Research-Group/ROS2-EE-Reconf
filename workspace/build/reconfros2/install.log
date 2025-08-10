@@ -1,5 +1,6 @@
 /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/multi_navigation_goals.py
 /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/nav_to_pose_action.py
+/workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/localization_error_lookup.py
 /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/add_obstacle.py
 /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/echo_initial_pose.py
 /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/initial_pose.py
@@ -7,6 +8,7 @@
 /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/single_navigation_goal.py
 /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/__pycache__/multi_navigation_goals.cpython-310.pyc
 /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/__pycache__/nav_to_pose_action.cpython-310.pyc
+/workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/__pycache__/localization_error_lookup.cpython-310.pyc
 /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/__pycache__/add_obstacle.cpython-310.pyc
 /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/__pycache__/echo_initial_pose.cpython-310.pyc
 /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/__pycache__/initial_pose.cpython-310.pyc

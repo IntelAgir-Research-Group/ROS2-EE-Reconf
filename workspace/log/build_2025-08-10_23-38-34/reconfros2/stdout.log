@@ -1,0 +1,33 @@
+running egg_info
+writing ../../build/reconfros2/reconfros2.egg-info/PKG-INFO
+writing dependency_links to ../../build/reconfros2/reconfros2.egg-info/dependency_links.txt
+writing entry points to ../../build/reconfros2/reconfros2.egg-info/entry_points.txt
+writing requirements to ../../build/reconfros2/reconfros2.egg-info/requires.txt
+writing top-level names to ../../build/reconfros2/reconfros2.egg-info/top_level.txt
+reading manifest file '../../build/reconfros2/reconfros2.egg-info/SOURCES.txt'
+writing manifest file '../../build/reconfros2/reconfros2.egg-info/SOURCES.txt'
+running build
+running build_py
+copying reconfros2/nav_to_pose_action.py -> /workspace/build/reconfros2/build/lib/reconfros2
+copying reconfros2/localization_error_lookup.py -> /workspace/build/reconfros2/build/lib/reconfros2
+running install
+running install_lib
+copying /workspace/build/reconfros2/build/lib/reconfros2/nav_to_pose_action.py -> /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2
+copying /workspace/build/reconfros2/build/lib/reconfros2/localization_error_lookup.py -> /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2
+byte-compiling /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/nav_to_pose_action.py to nav_to_pose_action.cpython-310.pyc
+byte-compiling /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/localization_error_lookup.py to localization_error_lookup.cpython-310.pyc
+running install_data
+running install_egg_info
+removing '/workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2-0.0.0-py3.10.egg-info' (and everything under it)
+Copying ../../build/reconfros2/reconfros2.egg-info to /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2-0.0.0-py3.10.egg-info
+running install_scripts
+Installing add_obstacle script to /workspace/install/reconfros2/lib/reconfros2
+Installing initial_pose script to /workspace/install/reconfros2/lib/reconfros2
+Installing multi_navigation_goals script to /workspace/install/reconfros2/lib/reconfros2
+Installing nav_to_pose script to /workspace/install/reconfros2/lib/reconfros2
+Installing nav_to_pose_action script to /workspace/install/reconfros2/lib/reconfros2
+Installing reset_world script to /workspace/install/reconfros2/lib/reconfros2
+Installing respawn_world script to /workspace/install/reconfros2/lib/reconfros2
+Installing single_navigation_goal script to /workspace/install/reconfros2/lib/reconfros2
+Installing spawn_robot script to /workspace/install/reconfros2/lib/reconfros2
+writing list of installed files to '/workspace/build/reconfros2/install.log'

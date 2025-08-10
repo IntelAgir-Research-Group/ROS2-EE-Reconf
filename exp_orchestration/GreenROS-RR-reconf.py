@@ -161,7 +161,7 @@ class RobotRunnerConfig:
         run_id = variation['__run_id']
         # Nav2
         dest_nav2_file = f"~/Documents/experiments/{self.name}/{run_id}/nav2_performance.csv"
-        command_nav2 = f"cp {rl4greenros_path}/docker/data/nav2_performance.csv {dest_nav2_file}"
+        command_nav2 = f"mv {rl4greenros_path}/docker/data/nav2_performance.csv {dest_nav2_file}"
         subprocess.run(command_nav2, shell=True)
         # CPU/MEM
         # dest_cpu_file = f"~/Documents/experiments/{self.name}/{run_id}/cpu-mem.csv"

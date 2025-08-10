@@ -16,6 +16,7 @@ reconfros2/__init__.py
 reconfros2/add_obstacle.py
 reconfros2/echo_initial_pose.py
 reconfros2/initial_pose.py
+reconfros2/localization_error_lookup.py
 reconfros2/multi_navigation_goals.py
 reconfros2/nav_to_pose_action.py
 reconfros2/single_navigation_goal.py
