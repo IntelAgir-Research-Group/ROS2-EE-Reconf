@@ -76,8 +76,7 @@ class RobotRunnerConfig:
         representing each run robot-runner must perform"""
         run_table = RunTableModel(
             factors = [
-                FactorModel("round", range(0,3)),
-                # FactorModel("configuration", range(0,20)),
+                FactorModel("round", range(0,5)),
                 FactorModel("configuration", range(0,20)),
                 FactorModel("position_goal", [2]),
                 # FactorModel("number_obstacles", [0,1,2]), # Only implemented in 1 map
@@ -179,8 +178,8 @@ class RobotRunnerConfig:
         ## bash clean-containers
 
 
-        print("Cooling down period of 60 seconds...")
-        time.sleep(60)
+        print("Cooling down period of 30 seconds...")
+        time.sleep(30)
         print("----------------- Run Finished -----------------\n\n")
     
     def populate_run_data(self, context: RobotRunnerContext) -> tuple:
