@@ -25,17 +25,16 @@ sudo visudo -f /etc/sudoers.d/powerjoular-michel
 Add the following content (replacing user with your username) into the file:
 
 ```bash
-Cmnd_Alias POWERJOULAR = /usr/local/bin/powerjoular, /usr/bin/powerjoular
+Cmnd_Alias POWERJOULAR = /usr/local/bin/powerjoular, /usr/bin/powerjoular, /usr/bin/mv
 user ALL=(root) NOPASSWD: POWERJOULAR
 ```
 
-bash
-Copy
-Edit
+Give the right permissions:
+
+```bash
 sudo chown root:root /etc/sudoers.d/powerjoular-michel
 sudo chmod 0440 /etc/sudoers.d/powerjoular-michel
-Ensure /etc/sudoers has #includedir /etc/sudoers.d (not commented).
-
+```
 
 ### Running the Experiments
 
