@@ -79,7 +79,7 @@ class RobotRunnerConfig:
         representing each run robot-runner must perform"""
         run_table = RunTableModel(
             factors = [
-                FactorModel("round", range(0,5)),
+                FactorModel("round", range(0,3)),
                 FactorModel("configuration", range(0,20)),
                 FactorModel("position_goal", [2]),
                 # FactorModel("number_obstacles", [0,1,2]), # Only implemented in 1 map
@@ -180,6 +180,10 @@ class RobotRunnerConfig:
         dest_cpu_file_g = f"~/Documents/experiments/{self.name}/{run_id}/global.csv"
         command_cpu_g = f"cp {rl4greenros_path}/docker/data/local.csv {dest_cpu_file_g}"
         subprocess.run(command_cpu_g, shell=True)
+
+        dest_pj = f"~/Documents/experiments/{self.name}/{run_id}/"
+        command_pj = f"mv {rl4greenros_path}/docker/data/pj_*.csv {dest_pj}"
+        subprocess.run(command_pj, shell=True)
 
     def stop_run(self, context: RobotRunnerContext) -> None:
         """Perform any activity required for stopping the run here.
