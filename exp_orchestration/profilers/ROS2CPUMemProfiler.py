@@ -24,32 +24,7 @@ class ROS2CPUMemProfiler:
 
     def __init__(self, name, file):
         self.file_name = file
-        #self.__pid = self.get_pid_by_name(name)
-
-    def get_pid_ps(self, process_name:str, clients: int):
-        try:
-            result = subprocess.run(
-                ["ps", "ax"],
-                stdout=subprocess.PIPE,
-                text=True
-            )
-            match_count = 0
-            for line in result.stdout.splitlines():
-                if process_name in line:
-                    match_count += 1
-                    line_number = 3
-                    if clients > 1:
-                        line_number = 2 + clients
-                    if match_count == line_number:
-                        print("Match!!!")
-                        pid = int(line.split(None, 1)[0])
-                        return pid
-                    else:
-                        print(f"match: {match_count}, line number: {line_number}")
-            return None
-        except Exception as e:
-            print(f"Error: {e}")
-            return None
+        self.__pid = self.get_pid_by_name(name)
 
     def get_pid(self):
         return self.__pid
@@ -59,6 +34,7 @@ class ROS2CPUMemProfiler:
 
     def get_pid_by_name(self, name: str):
         for proc in psutil.process_iter(['pid', 'name']):
+            tries = 5
             try:
                 if proc.info['name'] == name:
                     print(f"Process found with PID {proc.info['pid']}")
@@ -76,6 +52,42 @@ class ROS2CPUMemProfiler:
                 cpu_usage += child.cpu_percent(interval=0.1)
             return cpu_usage
         except psutil.NoSuchProcess:
+            return None
+    
+    def get_cpu_cycles_estimate(self):
+        """
+        Estimate total CPU cycles used by the process and its children so far.
+        Computed as (user+system) CPU time [s] * current CPU frequency [Hz].
+        Returns an integer number of cycles, or None if unavailable.
+        """
+        if self.__pid is None:
+            return None
+
+        try:
+            process = psutil.Process(self.__pid)
+
+            def _cpu_seconds(p: psutil.Process) -> float:
+                t = p.cpu_times()
+                # Some platforms also have t.children_user/system; we sum explicitly for portability
+                return (t.user or 0.0) + (t.system or 0.0)
+
+            total_seconds = _cpu_seconds(process)
+
+            # Include children recursively
+            for child in process.children(recursive=True):
+                try:
+                    total_seconds += _cpu_seconds(child)
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    pass
+
+            # Current CPU frequency (may fluctuate with DVFS/turbo)
+            freq = psutil.cpu_freq()
+            if not freq or not freq.current:   # freq may be None on some platforms
+                return None
+
+            cycles = total_seconds * (freq.current * 1_000_000)  # MHz -> Hz
+            return int(cycles)
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
             return None
 
     def get_memory_usage(self):
@@ -115,15 +127,19 @@ class ROS2CPUMemProfiler:
         with open(self.file_name, mode='w', newline='') as file:
             writer = csv.writer(file)
 
-            columns = ['run', *tuple(self.factors), 'cpu_percentage', 'memory_usage']
+            # (Keeping your header label 'run' as-is, even though it's a timestamp)
+            columns = ['run', *tuple(self.factors), 'cpu_percentage', 'memory_usage', 'cpu_cycles_est']
             writer.writerow(columns)
             
             while not self.stop_event.is_set():
                 cpu_usage = self.get_cpu_usage()
                 memory_usage = self.get_memory_usage()
+                cpu_cycles_est = self.get_cpu_cycles_estimate()
                 timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-                if cpu_usage is not None and memory_usage is not None:
-                    writer.writerow([timestamp,*tuple(variation_factor_values), cpu_usage, memory_usage])
+
+                if (cpu_usage is not None) and (memory_usage is not None):
+                    writer.writerow([timestamp, *tuple(variation_factor_values),
+                                     cpu_usage, memory_usage, cpu_cycles_est])
                 sequence += 1
                 time.sleep(0.1)
 

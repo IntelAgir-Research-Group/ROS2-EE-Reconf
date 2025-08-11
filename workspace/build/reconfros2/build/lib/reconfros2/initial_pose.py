@@ -1,57 +1,75 @@
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Header
-from builtin_interfaces.msg import Time
 from geometry_msgs.msg import PoseWithCovarianceStamped, PoseWithCovariance, Pose, Point, Quaternion
-import numpy as np
 import time
 
 class InitialPosePublisher(Node):
     def __init__(self):
         super().__init__('initial_pose_publisher')
         self.publisher_ = self.create_publisher(PoseWithCovarianceStamped, '/initialpose', 10)
-        self.timer = self.create_timer(1.0, self.publish_initial_pose)
+
+    def wait_for_sim_time(self, timeout=10.0):
+        # If sim time is used, wait until /clock is active
+        if not self.get_clock().ros_time_is_active:
+            start = time.time()
+            self.get_logger().info("Waiting for /clock (use_sim_time) ...")
+            while not self.get_clock().ros_time_is_active:
+                rclpy.spin_once(self, timeout_sec=0.1)
+                if time.time() - start > timeout:
+                    self.get_logger().warn("Timed out waiting for /clock; using wall time.")
+                    return False
+        return True
+
+    def wait_for_subscriber(self, timeout=10.0):
+        start = time.time()
+        self.get_logger().info("Waiting for a subscriber on /initialpose ...")
+        while self.publisher_.get_subscription_count() == 0:
+            rclpy.spin_once(self, timeout_sec=0.1)
+            if time.time() - start > timeout:
+                self.get_logger().warn("No subscriber on /initialpose within timeout.")
+                return False
+        return True
 
     def publish_initial_pose(self):
-        # Create and populate the PoseWithCovarianceStamped message
         msg = PoseWithCovarianceStamped()
 
-        # Set the header
+        # Header
         msg.header = Header()
-        msg.header.stamp = Time(sec=1714778807, nanosec=917830182)
+        msg.header.stamp = self.get_clock().now().to_msg()  # <-- current time (not a fixed old stamp!)
         msg.header.frame_id = 'map'
 
-        # Set the pose with covariance
+        # Pose
         msg.pose = PoseWithCovariance()
         msg.pose.pose = Pose()
         msg.pose.pose.position = Point(x=1.0, y=1.9, z=0.0)
         msg.pose.pose.orientation = Quaternion(x=0.0, y=0.0, z=-2.108866730152919e-06, w=0.9999999999977763)
 
-        # Set the covariance (as a flat list)
-        covariance = [
-            0.25, 0.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 0.25, 0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0, 0.0, 0.06853892
+        # Covariance (non-zero yaw variance helps AMCL)
+        msg.pose.covariance = [
+            0.25, 0.0,  0.0,  0.0, 0.0, 0.0,
+            0.0,  0.25, 0.0,  0.0, 0.0, 0.0,
+            0.0,  0.0,  0.0,  0.0, 0.0, 0.0,
+            0.0,  0.0,  0.0,  0.0, 0.0, 0.0,
+            0.0,  0.0,  0.0,  0.0, 0.0, 0.0,
+            0.0,  0.0,  0.0,  0.0, 0.0, 0.06853892
         ]
-        msg.pose.covariance = covariance
 
-        self.publisher_.publish(msg)
-        self.get_logger().info(f'Published message: {msg}')
+        # Publish a few times to be robust
+        for i in range(5):
+            msg.header.stamp = self.get_clock().now().to_msg()
+            self.publisher_.publish(msg)
+            self.get_logger().info(f'Published initial pose ({i+1}/5)')
+            rclpy.spin_once(self, timeout_sec=0.05)
+            time.sleep(0.1)
 
 def main(args=None):
     rclpy.init(args=args)
     node = InitialPosePublisher()
-
     try:
-        #rclpy.spin(node)
-        for i in range(2): # making sure the message is read
-            rclpy.spin_once(node)
-            time.sleep(5)
-    except KeyboardInterrupt:
-        pass
+        node.wait_for_sim_time(timeout=10.0)         # don’t publish with stale/zero time
+        node.wait_for_subscriber(timeout=10.0)       # avoid publishing to nobody
+        node.publish_initial_pose()
     finally:
         node.destroy_node()
         rclpy.shutdown()
