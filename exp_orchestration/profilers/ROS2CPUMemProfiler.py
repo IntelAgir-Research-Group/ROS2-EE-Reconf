@@ -53,6 +53,42 @@ class ROS2CPUMemProfiler:
             return cpu_usage
         except psutil.NoSuchProcess:
             return None
+    
+    def get_cpu_cycles_estimate(self):
+        """
+        Estimate total CPU cycles used by the process and its children so far.
+        Computed as (user+system) CPU time [s] * current CPU frequency [Hz].
+        Returns an integer number of cycles, or None if unavailable.
+        """
+        if self.__pid is None:
+            return None
+
+        try:
+            process = psutil.Process(self.__pid)
+
+            def _cpu_seconds(p: psutil.Process) -> float:
+                t = p.cpu_times()
+                # Some platforms also have t.children_user/system; we sum explicitly for portability
+                return (t.user or 0.0) + (t.system or 0.0)
+
+            total_seconds = _cpu_seconds(process)
+
+            # Include children recursively
+            for child in process.children(recursive=True):
+                try:
+                    total_seconds += _cpu_seconds(child)
+                except (psutil.NoSuchProcess, psutil.AccessDenied):
+                    pass
+
+            # Current CPU frequency (may fluctuate with DVFS/turbo)
+            freq = psutil.cpu_freq()
+            if not freq or not freq.current:   # freq may be None on some platforms
+                return None
+
+            cycles = total_seconds * (freq.current * 1_000_000)  # MHz -> Hz
+            return int(cycles)
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            return None
 
     def get_memory_usage(self):
         try:
@@ -91,15 +127,19 @@ class ROS2CPUMemProfiler:
         with open(self.file_name, mode='w', newline='') as file:
             writer = csv.writer(file)
 
-            columns = ['run', *tuple(self.factors), 'cpu_percentage', 'memory_usage']
+            # (Keeping your header label 'run' as-is, even though it's a timestamp)
+            columns = ['run', *tuple(self.factors), 'cpu_percentage', 'memory_usage', 'cpu_cycles_est']
             writer.writerow(columns)
             
             while not self.stop_event.is_set():
                 cpu_usage = self.get_cpu_usage()
                 memory_usage = self.get_memory_usage()
+                cpu_cycles_est = self.get_cpu_cycles_estimate()
                 timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')[:-3]
-                if cpu_usage is not None and memory_usage is not None:
-                    writer.writerow([timestamp,*tuple(variation_factor_values), cpu_usage, memory_usage])
+
+                if (cpu_usage is not None) and (memory_usage is not None):
+                    writer.writerow([timestamp, *tuple(variation_factor_values),
+                                     cpu_usage, memory_usage, cpu_cycles_est])
                 sequence += 1
                 time.sleep(0.1)
 
