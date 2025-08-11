@@ -24,32 +24,7 @@ class ROS2CPUMemProfiler:
 
     def __init__(self, name, file):
         self.file_name = file
-        #self.__pid = self.get_pid_by_name(name)
-
-    def get_pid_ps(self, process_name:str, clients: int):
-        try:
-            result = subprocess.run(
-                ["ps", "ax"],
-                stdout=subprocess.PIPE,
-                text=True
-            )
-            match_count = 0
-            for line in result.stdout.splitlines():
-                if process_name in line:
-                    match_count += 1
-                    line_number = 3
-                    if clients > 1:
-                        line_number = 2 + clients
-                    if match_count == line_number:
-                        print("Match!!!")
-                        pid = int(line.split(None, 1)[0])
-                        return pid
-                    else:
-                        print(f"match: {match_count}, line number: {line_number}")
-            return None
-        except Exception as e:
-            print(f"Error: {e}")
-            return None
+        self.__pid = self.get_pid_by_name(name)
 
     def get_pid(self):
         return self.__pid
@@ -59,6 +34,7 @@ class ROS2CPUMemProfiler:
 
     def get_pid_by_name(self, name: str):
         for proc in psutil.process_iter(['pid', 'name']):
+            tries = 5
             try:
                 if proc.info['name'] == name:
                     print(f"Process found with PID {proc.info['pid']}")
