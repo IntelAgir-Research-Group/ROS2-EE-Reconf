@@ -9,6 +9,35 @@ Before running this package, make sure you have the following prerequisites inst
 - ROS 2
 - Docker
 - Python >3 (It has been validated on `Python 3.10`)
+- [PowerJoular](https://github.com/joular/powerjoular) -- Check the documentation for installation.
+
+
+### PowerJoular
+
+For energy measurements, we use **PowerJoular**, which must be set to run as root without password.
+
+For that, first put the rule in a drop-in with visudo and correct perms:
+
+```bash
+sudo visudo -f /etc/sudoers.d/powerjoular-michel
+```
+
+Add the following content (replacing user with your username) into the file:
+
+```bash
+Cmnd_Alias POWERJOULAR = /usr/local/bin/powerjoular, /usr/bin/powerjoular
+user ALL=(root) NOPASSWD: POWERJOULAR
+```
+
+bash
+Copy
+Edit
+sudo chown root:root /etc/sudoers.d/powerjoular-michel
+sudo chmod 0440 /etc/sudoers.d/powerjoular-michel
+Ensure /etc/sudoers has #includedir /etc/sudoers.d (not commented).
+
+
+### Running the Experiments
 
 You must set path to your `ROS2-ee-reconf` folder:
 
