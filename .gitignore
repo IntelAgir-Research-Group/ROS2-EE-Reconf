@@ -2,3 +2,4 @@ config/.DS_Store
 .DS_Store
 .venv/
 *.csv
+*.log

@@ -24,3 +24,5 @@ if [ -f "$SETUP_FILE" ]; then
 else
     echo "Error: setup.bash not found at $SETUP_FILE"
 fi
+
+xhost +

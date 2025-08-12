@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import threading
 from ament_index_python.packages import get_package_share_directory
 import time
 
@@ -28,6 +29,10 @@ class ROSDriver:
             print(f"Success: {result.stdout}")        
         time.sleep(5)
         return result
+    
+    def run_command_in_thread(self, command: str) -> threading.Thread:
+        thread = threading.Thread(target=self.exec_docker_command, args=(command,))
+        return thread
 
     def set_initial_position(self):
         command = "source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 initial_pose"
@@ -63,24 +68,36 @@ class ROSDriver:
 
         return
     
-    def next_position(self, context: RobotRunnerContext):
+    # def next_position(self, context: RobotRunnerContext):
+    #     variation = context.run_variation
+
+    #     # Getting next position
+    #     next_position = int(variation['position_goal'])
+    #     # command = f"source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 nav_to_pose --ros-args -p nav_goal:={next_position}"
+    #     command = f"source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 nav_to_pose_action --ros-args -p nav_goal:={next_position} -p timeout_sec:=200"
+    #     self.exec_docker_command(command)
+
+    def next_position(self, context: RobotRunnerContext) -> threading.Thread:
         variation = context.run_variation
 
         # Getting next position
         next_position = int(variation['position_goal'])
-        # command = f"source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 nav_to_pose --ros-args -p nav_goal:={next_position}"
         command = f"source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 nav_to_pose_action --ros-args -p nav_goal:={next_position} -p timeout_sec:=200"
-        self.exec_docker_command(command)
+        #self.exec_docker_command(command)
+        return self.run_command_in_thread(command)
 
     def next_obstacle(self, context: RobotRunnerContext): # implement obstacles at the preset position
         variation = context.run_variation
 
         # number obstacles
         number_obstacles = variation['number_obstacles']
+        nav_goal = variation['position_goal']
 
         if number_obstacles > 0:
             print(f"Adding '{number_obstacles}' obstacles.")
+            command = f"source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 add_obstacle --ros-args -p num_obstacles:={number_obstacles} -p nav_goal:={nav_goal}"
+            #self.exec_docker_command(command)
+            return self.run_command_in_thread(command)
         else:
             print("No obstacles!")
-        
-        return
+            return threading.Thread()

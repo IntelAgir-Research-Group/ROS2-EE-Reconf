@@ -122,7 +122,7 @@ class DockerRunner:
                     subprocess.run(["docker", "compose", "-f", compose_file_path, "up", "-d", "--scale", f"{container}={scale}"], check=True)
                 print(f"Container for service '{container}' started successfully.")
                 print('Wainting for the container to warm up... ')
-                time.sleep(10)
+                time.sleep(20)
                 return True
             except subprocess.CalledProcessError as e:
                 print(f"Error starting container for service '{container}': {e}")

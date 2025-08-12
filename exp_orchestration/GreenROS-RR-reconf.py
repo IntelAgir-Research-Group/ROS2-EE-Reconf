@@ -2,6 +2,7 @@ import os
 from threading import Thread
 import subprocess
 import sys
+import threading
 
 rr_path = os.getenv('RR_PATH')
 sys.path.append(rr_path)
@@ -33,7 +34,7 @@ import time
 rl4greenros_path = os.getenv('RL4GreenROS_PATH')
 
 class RobotRunnerConfig:
-    name:                       str             = "greenros_reconf_world_small"
+    name:                       str             = "greenros_reconf_world_small_obstacles"
     required_ros_version:       int             = 2
     required_ros_distro:        str             = any
     operation_type:             OperationType   = OperationType.AUTO
@@ -82,7 +83,7 @@ class RobotRunnerConfig:
                 FactorModel("round", range(0,3)),
                 FactorModel("configuration", range(0,20)),
                 FactorModel("position_goal", [2]),
-                # FactorModel("number_obstacles", [0,1,2]), # Only implemented in 1 map
+                FactorModel("number_obstacles", [0,2]), # Only implemented in 1 map
                 # FactorModel("map", ['small', 'medium', 'large']) # Not implemented
             ]
             # ,
@@ -135,10 +136,6 @@ class RobotRunnerConfig:
 
         print("Setting robot initial position on Gazebo")
         self.ros_driver.set_initial_position() # get the initial position from the context
-        
-        ## FIXED UNTIL ALL PROFILERS ARE RUNNING
-        # Setting up obstacles
-        # self.ros_driver.next_obstacle(context)
 
     def start_measurement(self, context: RobotRunnerContext) -> None:
         """Perform any activity required for starting measurements."""
@@ -155,7 +152,15 @@ class RobotRunnerConfig:
         system in question (simulated or real-life) here."""
 
         print("Config.launch_mission() called!")
-        self.ros_driver.next_position(context)
+        thread_position: threading.Thread = self.ros_driver.next_position(context)
+
+        # Setting up obstacles
+        print("Adding obstacles")
+        thread_obstacle: threading.Thread = self.ros_driver.next_obstacle(context)
+
+        thread_position.start()
+        thread_obstacle.start()
+        thread_position.join()
 
     def stop_measurement(self, context: RobotRunnerContext) -> None:
         """Perform any activity here required for stopping measurements."""
@@ -196,8 +201,8 @@ class RobotRunnerConfig:
         command_clean_containers = f"bash {rl4greenros_path}/clean-containers.sh"
         subprocess.run(command_clean_containers, shell=True)
 
-        print("Cooling down period of 30 seconds...")
-        time.sleep(30)
+        print("Cooling down period of 60 seconds...")
+        time.sleep(60)
         print("----------------- Run Finished -----------------\n\n")
     
     def populate_run_data(self, context: RobotRunnerContext) -> tuple:
