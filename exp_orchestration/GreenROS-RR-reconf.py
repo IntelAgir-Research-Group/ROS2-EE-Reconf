@@ -34,7 +34,7 @@ import time
 rl4greenros_path = os.getenv('RL4GreenROS_PATH')
 
 class RobotRunnerConfig:
-    name:                       str             = "greenros_reconf_world_small_obstacles"
+    name:                       str             = "greenros_reconf_world_small_obstacles_energy"
     required_ros_version:       int             = 2
     required_ros_distro:        str             = any
     operation_type:             OperationType   = OperationType.AUTO
@@ -160,7 +160,8 @@ class RobotRunnerConfig:
 
         thread_position.start()
         thread_obstacle.start()
-        thread_position.join()
+        thread_position.join(120)
+        thread_obstacle.join(90)
 
     def stop_measurement(self, context: RobotRunnerContext) -> None:
         """Perform any activity here required for stopping measurements."""
