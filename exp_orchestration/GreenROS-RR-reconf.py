@@ -34,7 +34,7 @@ import time
 rl4greenros_path = os.getenv('RL4GreenROS_PATH')
 
 class RobotRunnerConfig:
-    name:                       str             = "greenros_reconf_world_small_obstacles_energy"
+    name:                       str             = "greenros_reconf_world_small_fix_config"
     required_ros_version:       int             = 2
     required_ros_distro:        str             = any
     operation_type:             OperationType   = OperationType.AUTO
@@ -80,8 +80,8 @@ class RobotRunnerConfig:
         representing each run robot-runner must perform"""
         run_table = RunTableModel(
             factors = [
-                FactorModel("round", range(0,3)),
-                FactorModel("configuration", range(0,20)),
+                FactorModel("round", range(0,20)),
+                #FactorModel("configuration", range(0,20)),
                 FactorModel("position_goal", [2]),
                 FactorModel("number_obstacles", [0,2]), # Only implemented in 1 map
                 # FactorModel("map", ['small', 'medium', 'large']) # Not implemented
@@ -115,21 +115,21 @@ class RobotRunnerConfig:
 
         variation = context.run_variation
  
-        print('Creating Nav2 configuration file...')
+        # print('Creating Nav2 configuration file...')
 
-        # number obstacles
-        configuration = variation['configuration']
-        print(f'Configuration: {configuration}')
-        project_folder = os.getenv("RL4GreenROS_PATH")
-        nav2_param_file = f"{project_folder}/current_config/nav2_params.yaml"
-        commands = [
-            f"cat {project_folder}/current_config/default_params.yaml > {nav2_param_file}",
-            f"cat {project_folder}/config/gen_configs/local/config_{configuration}.yaml >> {nav2_param_file}",
-            f"cat {project_folder}/config/gen_configs/global/config_{configuration}.yaml >> {nav2_param_file}",
-        ]
+        # # number obstacles
+        # configuration = variation['configuration']
+        # print(f'Configuration: {configuration}')
+        # project_folder = os.getenv("RL4GreenROS_PATH")
+        # nav2_param_file = f"{project_folder}/current_config/nav2_params.yaml"
+        # commands = [
+        #     f"cat {project_folder}/current_config/default_params.yaml > {nav2_param_file}",
+        #     f"cat {project_folder}/config/gen_configs/local/config_{configuration}.yaml >> {nav2_param_file}",
+        #     f"cat {project_folder}/config/gen_configs/global/config_{configuration}.yaml >> {nav2_param_file}",
+        # ]
 
-        for cmd in commands:
-            subprocess.run(cmd, shell=True, check=True)
+        # for cmd in commands:
+        #     subprocess.run(cmd, shell=True, check=True)
 
         print('Starting Nav2 with customized configuration')
         self.docker_runner.start_container("nav2", 1)
@@ -203,7 +203,7 @@ class RobotRunnerConfig:
         subprocess.run(command_clean_containers, shell=True)
 
         print("Cooling down period of 60 seconds...")
-        time.sleep(60)
+        time.sleep(30)
         print("----------------- Run Finished -----------------\n\n")
     
     def populate_run_data(self, context: RobotRunnerContext) -> tuple:
