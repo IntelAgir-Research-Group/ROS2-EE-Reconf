@@ -160,7 +160,8 @@ class RobotRunnerConfig:
 
         thread_position.start()
         thread_obstacle.start()
-        thread_position.join()
+        thread_position.join(120)
+        thread_obstacle.join(90)
 
     def stop_measurement(self, context: RobotRunnerContext) -> None:
         """Perform any activity here required for stopping measurements."""
