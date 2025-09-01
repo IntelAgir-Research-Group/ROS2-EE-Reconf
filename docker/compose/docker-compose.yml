@@ -12,13 +12,16 @@ services:
     #   resources:
     #     reservations:
     #       devices:
-<<<<<<< Updated upstream
-    #         - capabilities: [gpu]
-=======
     #         - count: all
     #           capabilities: [gpu]
     # runtime: nvidia
->>>>>>> Stashed changes
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - count: all
+              capabilities: [gpu]
+    runtime: nvidia
     networks:
       my_custom_network:
         ipv4_address: 172.28.1.100
