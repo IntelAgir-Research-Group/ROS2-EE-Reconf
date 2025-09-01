@@ -16,7 +16,7 @@
 /workspace/install/reconfros2/lib/python3.10/site-packages/reconfros2/__pycache__/single_navigation_goal.cpython-310.pyc
 /workspace/install/reconfros2/share/ament_index/resource_index/packages/reconfros2
 /workspace/install/reconfros2/share/reconfros2/package.xml
-/workspace/install/reconfros2/share/reconfros2/worlds/rl4greenros_room.world
+/workspace/install/reconfros2/share/reconfros2/worlds/rl4greenros_small_room.world
 /workspace/install/reconfros2/share/reconfros2/worlds/rl4greenros_large_room.world
 /workspace/install/reconfros2/share/reconfros2/rosbag/metadata.yaml
 /workspace/install/reconfros2/share/reconfros2/rosbag/rosbag2_2024_05_03-20_26_41_0.db3
