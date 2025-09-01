@@ -27,4 +27,4 @@ test/test_copyright.py
 test/test_flake8.py
 test/test_pep257.py
 worlds/rl4greenros_large_room.world
-worlds/rl4greenros_room.world
+worlds/rl4greenros_small_room.world

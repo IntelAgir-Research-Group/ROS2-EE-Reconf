@@ -12,7 +12,7 @@ setup(
         ('share/ament_index/resource_index/packages',
                 ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        ('share/' + package_name + '/worlds/', ['worlds/rl4greenros_room.world']),
+        ('share/' + package_name + '/worlds/', ['worlds/rl4greenros_small_room.world']),
         ('share/' + package_name + '/worlds/', ['worlds/rl4greenros_large_room.world']),
         ('share/' + package_name + '/rosbag/', ['rosbag/metadata.yaml']),
         ('share/' + package_name + '/rosbag/', ['rosbag/rosbag2_2024_05_03-20_26_41_0.db3']),
