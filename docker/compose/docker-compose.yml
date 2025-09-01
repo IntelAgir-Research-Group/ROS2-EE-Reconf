@@ -15,13 +15,6 @@ services:
     #         - count: all
     #           capabilities: [gpu]
     # runtime: nvidia
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - count: all
-              capabilities: [gpu]
-    runtime: nvidia
     networks:
       my_custom_network:
         ipv4_address: 172.28.1.100
@@ -56,6 +49,13 @@ services:
       tty: true                      # docker run -t
       privileged: true
       restart: unless-stopped
+      # deploy:
+      #   resources:
+      #     reservations:
+      #       devices:
+      #         - count: all
+      #           capabilities: [gpu]
+      # runtime: nvidia
       networks:
         my_custom_network:
           ipv4_address: 172.28.1.102
@@ -75,35 +75,6 @@ services:
         - nav2_data:/data
       
       command: ros2 run rviz2 rviz2 -d /data/nav2_default_view.rviz --ros-args --remap use_sim_time:=True --remap gui:=True
-
-  rviz-native:
-      # image: michelalbonico/ros:humble-ros-navigation
-      build: .
-      container_name: rviz_native_container
-      stdin_open: true               # docker run -i
-      tty: true                      # docker run -t
-      privileged: true
-      restart: unless-stopped
-      networks:
-        my_custom_network:
-          ipv4_address: 172.28.1.102
-      
-      environment:
-      - DISPLAY=${DISPLAY}
-      - QT_X11_NO_MITSHM=1
-      - XAUTHORITY=/root/.Xauthority
-      - TURTLEBOT3_MODEL=waffle
-      - ROS_DOMAIN_ID=0
-
-      volumes:
-        - /tmp/.X11-unix:/tmp/.X11-unix:rw
-        - /root/.docker.xauth:/root/.Xauthority:rw
-        - /dev:/dev
-        - /dev/shm:/dev/shm
-        - nav2_data:/data
-      
-      command: ros2 run rviz2 rviz2 -d /data/nav2_default_view.rviz --ros-args --remap use_sim_time:=True --remap gui:=True
-
   nav2:
       build: .
       container_name: nav2_container
