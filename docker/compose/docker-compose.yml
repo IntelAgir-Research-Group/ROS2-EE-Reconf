@@ -12,7 +12,13 @@ services:
     #   resources:
     #     reservations:
     #       devices:
+<<<<<<< Updated upstream
     #         - capabilities: [gpu]
+=======
+    #         - count: all
+    #           capabilities: [gpu]
+    # runtime: nvidia
+>>>>>>> Stashed changes
     networks:
       my_custom_network:
         ipv4_address: 172.28.1.100
@@ -93,8 +99,7 @@ services:
         - /dev/shm:/dev/shm
         - nav2_data:/data
       
-      command: ros2 run rviz2 rviz2 --ros-args --remap use_sim_time:=True --remap gui:=True
-
+      command: ros2 run rviz2 rviz2 -d /data/nav2_default_view.rviz --ros-args --remap use_sim_time:=True --remap gui:=True
 
   nav2:
       build: .
@@ -121,16 +126,43 @@ services:
         - packages:/packages
         - configs:/configs
 
-      command: bash -c "
-        source /usr/share/gazebo/setup.bash
-        &&
-        source /packages/setup.bash
-        &&
-        ros2 launch reconfros2 nav2_bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False"
+      # command: ros2 launch nav2_bringup navigation_launch.py map:=/maps/large_map.yaml
 
-      
+      command: bash -c "
+       source /usr/share/gazebo/setup.bash
+       &&
+       source /packages/setup.bash
+       &&
+       ros2 launch reconfros2 nav2_bringup_launch.py use_sim_time:=True map:=/maps/large_map.yaml use_composition:=False"
+
       #ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False param_file:=/configs/nav2_params.yaml
 
+  slam:
+      image: teleop
+      container_name: slam_container
+      stdin_open: true              # docker run -i
+      tty: true                      # docker run -t
+      privileged: true
+      restart: unless-stopped
+      networks:
+        my_custom_network:
+          ipv4_address: 172.28.1.105
+
+      environment:
+        - TURTLEBOT3_MODEL=waffle
+        - ROS_DOMAIN_ID=0
+        - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+
+      volumes:
+        - /dev:/dev
+        - maps:/maps
+        - nav2_data:/data
+        - nav2_profiler:/profiler
+        - exp_orchestration:/orchestrator
+        - packages:/packages
+        - configs:/configs
+
+      command: ros2 launch slam_toolbox online_async_launch.py
   robot-runner:
     image: michelalbonico/ros:humble-ros-base
     container_name: robot-runner_container
