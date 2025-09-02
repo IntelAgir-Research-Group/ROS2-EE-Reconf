@@ -34,7 +34,7 @@ import time
 rl4greenros_path = os.getenv('RL4GreenROS_PATH')
 
 class RobotRunnerConfig:
-    name:                       str             = "greenros_reconf_world_small_obstacles_energy"
+    name:                       str             = "greenros_reconf_world_small_voxel"
     required_ros_version:       int             = 2
     required_ros_distro:        str             = any
     operation_type:             OperationType   = OperationType.AUTO
@@ -80,7 +80,7 @@ class RobotRunnerConfig:
         representing each run robot-runner must perform"""
         run_table = RunTableModel(
             factors = [
-                FactorModel("round", range(0,3)),
+                FactorModel("round", range(0,20)),
                 FactorModel("configuration", range(0,20)),
                 FactorModel("position_goal", [2]),
                 FactorModel("number_obstacles", [0,2]), # Only implemented in 1 map
