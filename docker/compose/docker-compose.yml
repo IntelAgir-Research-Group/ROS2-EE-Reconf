@@ -53,11 +53,11 @@ services:
       privileged: true
       restart: unless-stopped
       deploy:
-      resources:
-        reservations:
-          devices:
-            - count: all
-              capabilities: [gpu]
+        resources:
+          reservations:
+            devices:
+              - count: all
+                capabilities: [gpu]
       runtime: nvidia
       networks:
         my_custom_network:
