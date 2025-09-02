@@ -82,7 +82,7 @@ class ROSDriver:
 
         # Getting next position
         next_position = int(variation['position_goal'])
-        command = f"source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 nav_to_pose_action --ros-args -p nav_goal:={next_position} -p timeout_sec:=200"
+        command = f"source /opt/ros/humble/setup.bash && source /packages/setup.bash && ros2 run reconfros2 nav_to_pose_action --ros-args -p nav_goal:={next_position} -p timeout_sec:=300"
         #self.exec_docker_command(command)
         return self.run_command_in_thread(command)
 

@@ -1,20 +1,20 @@
 version: '3'
 services:
   gazebo:
-    # image: michelalbonico/ros:humble-ros-navigation
-    build: .
+    image: michelalbonico/ros:gazebo-classic
+    # build: .
     container_name: gazebo_container
     stdin_open: true               # docker run -i
     tty: true                      # docker run -t
     privileged: true
     restart: unless-stopped
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - count: all
-              capabilities: [gpu]
-    runtime: nvidia
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - count: all
+    #           capabilities: [gpu]
+    # runtime: nvidia
     networks:
       my_custom_network:
         ipv4_address: 172.28.1.100
@@ -33,11 +33,14 @@ services:
       - /dev:/dev
       - /dev/shm:/dev/shm
       - packages:/packages
+      - realsense:/realsense
 
     command: bash -c "
         source /usr/share/gazebo/setup.bash
         &&
         source /packages/setup.bash
+        && 
+        source /realsense/setup.bash
         &&
         ros2 launch reconfros2 turtlebot3_rl4greenros_room.launch.py use_sim_time:=True gui:=True headless:=False"
 
@@ -112,7 +115,7 @@ services:
       environment:
         - TURTLEBOT3_MODEL=waffle
         - ROS_DOMAIN_ID=0
-        - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models
+        - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models:/opt/ros/humble/share/
 
       volumes:
         - /dev:/dev
@@ -134,7 +137,7 @@ services:
       #ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False param_file:=/configs/nav2_params.yaml
 
   robot-runner:
-    image: michelalbonico/ros:humble-ros-base
+    image: michelalbonico/ros:robot-runner
     container_name: robot-runner_container
     stdin_open: false               # docker run -i
     tty: true                      # docker run -t
@@ -159,6 +162,7 @@ services:
       - packages:/packages
       - robot-runner:/robot-runner
       - workspace:/workspace
+      - realsense:/realsense
 
 volumes:
   packages:
@@ -209,6 +213,20 @@ volumes:
       type: none
       o: bind
       device: ${RL4GreenROS_PATH}/workspace
+  
+  realsense_ws:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/realsense_gazebo
+  
+  realsense:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${RL4GreenROS_PATH}/realsense_gazebo/install
 
   configs:
     driver: local

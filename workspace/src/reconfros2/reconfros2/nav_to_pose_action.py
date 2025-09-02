@@ -17,7 +17,7 @@ class NavigateToPoseActionClient(Node):
 
         # Params
         self.declare_parameter('nav_goal', 0)
-        self.declare_parameter('timeout_sec', 120)
+        self.declare_parameter('timeout_sec', 180)
         self.declare_parameter('plan_topic', '/plan')  # change to '/planner_server/plan' if needed
         self.timeout_sec = self.get_parameter('timeout_sec').get_parameter_value().integer_value
         self.plan_topic = self.get_parameter('plan_topic').get_parameter_value().string_value

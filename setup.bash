@@ -18,9 +18,11 @@ if [ -z "$RL4GreenROS_PATH" ]; then
 fi
 
 SETUP_FILE="$RL4GreenROS_PATH/workspace/install/setup.bash"
+SETUP_REALSENSE_FILE="$RL4GreenROS_PATH/realsense_gazebo/install/setup.bash"
 if [ -f "$SETUP_FILE" ]; then
     source "$SETUP_FILE"
-    echo "Sourced setup.bash from $SETUP_FILE"
+    source "$SETUP_REALSENSE_FILE"
+    echo "Sourced all the packages."
 else
     echo "Error: setup.bash not found at $SETUP_FILE"
 fi
