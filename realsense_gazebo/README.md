@@ -23,7 +23,7 @@ In custom robot's `model.sdf`, we should attach the link, sensors, joint  and pl
         <pose>0 0 0 -1.57 0 -1.57</pose>
         <geometry>
           <mesh>
-            <uri>model://chiconybot/meshes/d435.dae</uri>
+            <uri>file://chiconybot/meshes/d435.dae</uri>
           </mesh>
         </geometry>
       </visual>

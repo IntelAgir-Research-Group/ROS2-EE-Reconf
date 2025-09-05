@@ -1394,7 +1394,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
+              <uri>file://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -1556,7 +1556,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
+              <uri>file://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -2232,7 +2232,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
+              <uri>file://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -2394,7 +2394,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
+              <uri>file://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -2556,7 +2556,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
+              <uri>file://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
             </mesh>
           </geometry>
         </visual>
@@ -2718,7 +2718,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
+              <uri>file://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
             </mesh>
           </geometry>
         </visual>

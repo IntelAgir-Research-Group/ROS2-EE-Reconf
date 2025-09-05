@@ -8,13 +8,13 @@ services:
     tty: true                      # docker run -t
     privileged: true
     restart: unless-stopped
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - count: all
-              capabilities: [gpu]
-    runtime: nvidia
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - count: all
+    #           capabilities: [gpu]
+    # runtime: nvidia
     networks:
       my_custom_network:
         ipv4_address: 172.28.1.100
@@ -25,7 +25,7 @@ services:
       - XAUTHORITY=/root/.Xauthority
       - TURTLEBOT3_MODEL=waffle
       - ROS_DOMAIN_ID=0
-      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models/
+      - GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/opt/ros/humble/share/turtlebot3_gazebo/models/:/packages/models
 
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
