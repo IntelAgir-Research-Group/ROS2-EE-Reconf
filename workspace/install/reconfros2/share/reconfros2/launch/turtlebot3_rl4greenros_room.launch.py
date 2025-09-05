@@ -17,8 +17,8 @@ def generate_launch_description():
     
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     use_gui = LaunchConfiguration('gui', default='false')
-    x_pose = LaunchConfiguration('x_pose', default='2.0')
-    y_pose = LaunchConfiguration('y_pose', default='1.9')
+    x_pose = LaunchConfiguration('x_pose', default='0.0')
+    y_pose = LaunchConfiguration('y_pose', default='5.0')
 
     world = os.path.join(
         get_package_share_directory('reconfros2'),
@@ -48,7 +48,7 @@ def generate_launch_description():
 
     spawn_turtlebot_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(launch_file_dir, 'custom_spawn_turtlebot3.launch.py')
+            os.path.join(turtlebot3_gazebo_ros, 'launch', 'spawn_turtlebot3.launch.py')
         ),
         launch_arguments={
             'x_pose': x_pose,

@@ -17,8 +17,8 @@ def generate_launch_description():
     
     use_sim_time = LaunchConfiguration('use_sim_time', default='true')
     use_gui = LaunchConfiguration('gui', default='false')
-    x_pose = LaunchConfiguration('x_pose', default='0.8')
-    y_pose = LaunchConfiguration('y_pose', default='1.15')
+    x_pose = LaunchConfiguration('x_pose', default='0.0')
+    y_pose = LaunchConfiguration('y_pose', default='5.0')
 
     world = os.path.join(
         get_package_share_directory('reconfros2'),
