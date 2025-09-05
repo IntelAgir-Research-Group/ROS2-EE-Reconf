@@ -28,7 +28,7 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
             <name>Gazebo/Wood</name>
           </script>
           <shader type='pixel'>
@@ -52,7 +52,7 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
             <name>Gazebo/Grey</name>
           </script>
           <shader type='pixel'>
@@ -76,7 +76,7 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
             <name>Gazebo/Grey</name>
           </script>
           <shader type='pixel'>
@@ -100,7 +100,7 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
             <name>Gazebo/Grey</name>
           </script>
           <shader type='pixel'>
@@ -124,7 +124,7 @@
         </geometry>
         <material>
           <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
             <name>Gazebo/Grey</name>
           </script>
           <shader type='pixel'>

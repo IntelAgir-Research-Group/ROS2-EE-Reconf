@@ -38,7 +38,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Grey</name>
             </script>
           </material>
@@ -105,7 +105,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -140,7 +140,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -175,7 +175,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -210,7 +210,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -245,7 +245,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -280,7 +280,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -315,7 +315,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -362,7 +362,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -397,7 +397,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -432,7 +432,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -467,7 +467,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -502,7 +502,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -537,7 +537,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -572,7 +572,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -619,7 +619,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -654,7 +654,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -689,7 +689,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -724,7 +724,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -759,7 +759,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -794,7 +794,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -829,7 +829,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -876,7 +876,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -911,7 +911,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -946,7 +946,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -981,7 +981,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1016,7 +1016,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1051,7 +1051,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1086,7 +1086,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1133,7 +1133,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1168,7 +1168,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1203,7 +1203,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1238,7 +1238,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1273,7 +1273,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1308,7 +1308,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1343,7 +1343,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1390,7 +1390,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1425,7 +1425,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1460,7 +1460,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1495,7 +1495,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1530,7 +1530,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1565,7 +1565,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1600,7 +1600,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -1820,7 +1820,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>file://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
+              <uri>file://install/models/cinder_block_wide/meshes/cinder_block_wide.dae</uri>
             </mesh>
           </geometry>
           <material>
@@ -2142,7 +2142,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>file://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
+              <uri>file://install/models/cinder_block_wide/meshes/cinder_block_wide.dae</uri>
             </mesh>
           </geometry>
           <material>
@@ -2464,7 +2464,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>file://cinder_block_wide/meshes/cinder_block_wide.dae</uri>
+              <uri>file://install/models/cinder_block_wide/meshes/cinder_block_wide.dae</uri>
             </mesh>
           </geometry>
           <material>
@@ -2792,7 +2792,7 @@
           <material>
             <script>
               <name>Gazebo/Wood</name>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
             </script>
             <shader type='vertex'>
               <normal_map>__default__</normal_map>
@@ -2894,7 +2894,7 @@
           <material>
             <script>
               <name>Gazebo/Wood</name>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
             </script>
             <shader type='vertex'>
               <normal_map>__default__</normal_map>
@@ -2996,7 +2996,7 @@
           <material>
             <script>
               <name>Gazebo/Wood</name>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
             </script>
             <shader type='vertex'>
               <normal_map>__default__</normal_map>
@@ -3124,7 +3124,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -3159,7 +3159,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -3194,7 +3194,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -3229,7 +3229,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -3264,7 +3264,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -3299,7 +3299,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -3334,7 +3334,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Wood</name>
             </script>
           </material>
@@ -3373,7 +3373,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Grey</name>
             </script>
             <ambient>1 1 1 1</ambient>
@@ -3473,7 +3473,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Grey</name>
             </script>
             <ambient>1 1 1 1</ambient>
@@ -3573,7 +3573,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Grey</name>
             </script>
             <ambient>1 1 1 1</ambient>
@@ -3673,7 +3673,7 @@
           </geometry>
           <material>
             <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <uri>file://install/models/media/materials/scripts/gazebo.material</uri>
               <name>Gazebo/Grey</name>
             </script>
             <ambient>1 1 1 1</ambient>
