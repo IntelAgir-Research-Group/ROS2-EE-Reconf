@@ -6,6 +6,18 @@
       <real_time_factor>1</real_time_factor>
       <real_time_update_rate>1000</real_time_update_rate>
     </physics>
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>1000 1000</size></plane></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>1000 1000</size></plane></geometry>
+          <!-- the grid you see is just a material/texture -->
+        </visual>
+      </link>
+    </model>
     <model name='aws_robomaker_warehouse_ShelfF_01_001'>
       <link name='aws_robomaker_warehouse_ShelfF_01::link'>
         <inertial>
