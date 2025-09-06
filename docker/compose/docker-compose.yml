@@ -138,7 +138,8 @@ services:
         &&
         source /packages/setup.bash
         &&
-        ros2 launch reconfros2 nav2_bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False"
+        ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False"
+        #ros2 launch reconfros2 nav2_bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False"
 
       
       #ros2 launch nav2_bringup bringup_launch.py use_sim_time:=True map:=/maps/rl4greenros.yaml use_composition:=False param_file:=/configs/nav2_params.yaml

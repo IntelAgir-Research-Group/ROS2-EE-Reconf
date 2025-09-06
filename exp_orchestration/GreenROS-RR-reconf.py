@@ -34,7 +34,7 @@ import time
 rl4greenros_path = os.getenv('RL4GreenROS_PATH')
 
 class RobotRunnerConfig:
-    name:                       str             = "greenros_reconf_world_large_voxel"
+    name:                       str             = "greenros_reconf_world_large_voxel_default"
     required_ros_version:       int             = 2
     required_ros_distro:        str             = any
     operation_type:             OperationType   = OperationType.AUTO
@@ -81,7 +81,7 @@ class RobotRunnerConfig:
         run_table = RunTableModel(
             factors = [
                 FactorModel("round", range(0,20)),
-                FactorModel("configuration", range(0,20)),
+                FactorModel("configuration", 'default'),
                 FactorModel("position_goal", [3]),
                 FactorModel("number_obstacles", [0,2]), # Only implemented in 1 map
                 # FactorModel("map", ['small', 'medium', 'large']) # Not implemented
@@ -121,17 +121,17 @@ class RobotRunnerConfig:
         configuration = variation['configuration']
         print(f'Configuration: {configuration}')
         project_folder = os.getenv("RL4GreenROS_PATH")
-        nav2_param_file = f"{project_folder}/current_config/nav2_params.yaml"
-        commands = [
-            f"cat {project_folder}/current_config/default_params.yaml > {nav2_param_file}",
-            f"cat {project_folder}/config/gen_configs/local/config_{configuration}.yaml >> {nav2_param_file}",
-            f"cat {project_folder}/config/gen_configs/global/config_{configuration}.yaml >> {nav2_param_file}",
-        ]
+        # nav2_param_file = f"{project_folder}/current_config/nav2_params.yaml"
+        # commands = [
+        #     f"cat {project_folder}/current_config/default_params.yaml > {nav2_param_file}",
+        #     f"cat {project_folder}/config/gen_configs/local/config_{configuration}.yaml >> {nav2_param_file}",
+        #     f"cat {project_folder}/config/gen_configs/global/config_{configuration}.yaml >> {nav2_param_file}",
+        # ]
 
-        for cmd in commands:
-            subprocess.run(cmd, shell=True, check=True)
+        # for cmd in commands:
+        #     subprocess.run(cmd, shell=True, check=True)
 
-        print('Starting Nav2 with customized configuration')
+        print('Starting Nav2...')
         self.docker_runner.start_container("nav2", 1)
 
         print("Setting robot initial position on Gazebo")
@@ -160,8 +160,8 @@ class RobotRunnerConfig:
 
         thread_position.start()
         thread_obstacle.start()
-        thread_position.join(500)
-        thread_obstacle.join(500)
+        thread_position.join(600)
+        thread_obstacle.join(600)
 
     def stop_measurement(self, context: RobotRunnerContext) -> None:
         """Perform any activity here required for stopping measurements."""
