@@ -34,7 +34,7 @@ import time
 rl4greenros_path = os.getenv('RL4GreenROS_PATH')
 
 class RobotRunnerConfig:
-    name:                       str             = "greenros_reconf_world_small_voxel"
+    name:                       str             = "greenros_reconf_world_small_voxel-recorded"
     required_ros_version:       int             = 2
     required_ros_distro:        str             = any
     operation_type:             OperationType   = OperationType.AUTO
@@ -80,10 +80,10 @@ class RobotRunnerConfig:
         representing each run robot-runner must perform"""
         run_table = RunTableModel(
             factors = [
-                FactorModel("round", range(0,20)),
-                FactorModel("configuration", range(0,20)),
+                FactorModel("round", [0]),
+                FactorModel("configuration", [3]),
                 FactorModel("position_goal", [2]),
-                FactorModel("number_obstacles", [0,2]), # Only implemented in 1 map
+                FactorModel("number_obstacles", [2]), # Only implemented in 1 map
                 # FactorModel("map", ['small', 'medium', 'large']) # Not implemented
             ]
             # ,
@@ -134,9 +134,6 @@ class RobotRunnerConfig:
         print('Starting Nav2 with customized configuration')
         self.docker_runner.start_container("nav2", 1)
 
-        print("Setting robot initial position on Gazebo")
-        self.ros_driver.set_initial_position() # get the initial position from the context
-
     def start_measurement(self, context: RobotRunnerContext) -> None:
         """Perform any activity required for starting measurements."""
         print("Finding PIDs")
@@ -147,9 +144,14 @@ class RobotRunnerConfig:
         self.cpu_mem_local.start_profiler(context)
         self.cpu_mem_global.start_profiler(context)
 
+        time.sleep(900)
+
     def launch_mission(self, context: RobotRunnerContext) -> None:
         """Perform any activity interacting with the robotic
         system in question (simulated or real-life) here."""
+
+        print("Setting robot initial position on Gazebo")
+        self.ros_driver.set_initial_position() # get the initial position from the context
 
         print("Config.launch_mission() called!")
         thread_position: threading.Thread = self.ros_driver.next_position(context)
