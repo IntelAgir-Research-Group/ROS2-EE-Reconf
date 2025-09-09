@@ -10,3 +10,7 @@ scipy
 matplotlib
 seaborn
 numpy
+pingouin
+statsmodels
+scikit-learn
+scikit-posthocs
