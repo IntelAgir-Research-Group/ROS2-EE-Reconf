@@ -14,12 +14,12 @@ Before running this package, make sure you have the following prerequisites inst
 
 ### PowerJoular
 
-For energy measurements, we use **PowerJoular**, which must be set to run as root without password.
+For energy measurements, we use **PowerJoular**, which must be set to run as root without a password.
 
 For that, first put the rule in a drop-in with visudo and correct perms:
 
 ```bash
-sudo visudo -f /etc/sudoers.d/powerjoular-michel
+sudo visudo -f /etc/sudoers.d/powerjoular-youruser
 ```
 
 Add the following content (replacing user with your username) into the file:
@@ -32,19 +32,19 @@ user ALL=(root) NOPASSWD: POWERJOULAR
 Give the right permissions:
 
 ```bash
-sudo chown root:root /etc/sudoers.d/powerjoular-michel
-sudo chmod 0440 /etc/sudoers.d/powerjoular-michel
+sudo chown root:root /etc/sudoers.d/powerjoular-youruser
+sudo chmod 0440 /etc/sudoers.d/powerjoular-youruser
 ```
 
 ### Running the Experiments
 
-You must set path to your `ROS2-ee-reconf` folder:
+You must set the path to your `ROS2-ee-reconf` folder:
 
 ```bash
 export RL4GreenROS_PATH="<path here>"
 ```
 
-You must also source your ROS 2 and RL4GreenROS packages:
+You must also source your ROS 2 and customized packages:
 
 ```bash
 source /opt/ros/humble/setup.bash
@@ -67,3 +67,5 @@ With everything set, you must run the orchestrator with the following command:
 ```bash
 python3 $RR_PATH/robot-runner/ $RL4GreenROS_PATH/exp_orchestration/GreenROS-RR-reconf.py
 ```
+
+**Note** that in this anonymous package, this may not work correctly since it only allows a single branch to be anonymized, and we run each experiment (small and large maps) in separate branches for management purposes.
