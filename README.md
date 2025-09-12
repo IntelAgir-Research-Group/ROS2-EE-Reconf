@@ -1,6 +1,6 @@
 # Reconfiguring ROS 2 for Energy Efficiency
 
-This is the replication package of the paper `TITLE` on the reconfiguration of ROS 2 packages for energy efficiency.
+This is the replication package of the paper `Tuning ROS 2 for Greener Navigation: Experimental Insights from Costmap 2D Configurations` submitted to `ICRA 2026`.
 
 ## Table of Contents
 
@@ -128,4 +128,4 @@ Then, move to [this](./exp-orchestration/) tutorial/documentation.
 
 ## Data Analysis
 
-TBA
+The data analysis scripts, graphs, and logs can be found in [this](./analysis/) folder.
