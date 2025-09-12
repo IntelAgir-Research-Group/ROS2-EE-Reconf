@@ -128,4 +128,4 @@ Then, move to [this](./exp-orchestration/) tutorial/documentation.
 
 ## Data Analysis
 
-The data analysis scripts, graphs, and logs can be found in [this](./analysis/) folder.
+The experimental data, analysis scripts, graphs, and logs can be found in [this](./analysis/) folder.
