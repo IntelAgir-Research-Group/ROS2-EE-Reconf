@@ -84,11 +84,11 @@ $ docker-compose -f docker/compose/compose-rviz.yml up rviz
 
 #### Running GUI from Docker
 
-This is a work around that helps you to run GUI from Docker containers. From Ubuntu 19, Xorg does not allow TCP connections by default, so we must enable it. Another point, when logging in, be sure to choose Xorg as window manager. 
+This is a workaround that helps you run a GUI from Docker containers. From Ubuntu 19, Xorg does not allow TCP connections by default, so we must enable them. Another point, when logging in, be sure to choose Xorg as the window manager. 
 
 Then, follow the next steps:
 
-1. Edit the `/etc/X11/Xwrapper.config` as the following:
+1. Edit the `/etc/X11/Xwrapper.config` as follows:
 
 ```
 #allowed_users=console
@@ -114,7 +114,7 @@ xhost +
 xhost +si:localuser:root
 ```
 
-Now, you can start GUI apps from your Docker containers. This is important to visually check everything is working accordingly. *For the experiments, we set GUI mode off*.
+Now, you can start GUI apps from your Docker containers. This is important to visually check everything is working accordingly. *For the experiments, we set the GUI mode off*.
 
 ## Running the Experiments
 
@@ -124,7 +124,7 @@ For running the experiments, you must have the `robot-runner` [repository](https
 export RR_PATH='../robot-runner'
 ```
 
-Then, move to [this](./exp-orchestration/) tutorial/documentation.
+Then, move to [this](./exp_orchestration/) tutorial/documentation.
 
 ## Data Analysis
 
