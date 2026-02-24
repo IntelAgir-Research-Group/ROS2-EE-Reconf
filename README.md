@@ -1,6 +1,12 @@
 # Reconfiguring ROS 2 for Energy Efficiency
 
-This is the replication package of the paper `Tuning ROS 2 for Greener Navigation: Experimental Insights from Costmap 2D Configurations` submitted to `ICRA 2026`.
+This is the replication package of the paper `Tuning ROS 2 for Greener Navigation: Experimental Insights from Costmap 2D Configurations` accepted at `ICRA 2026`.
+
+## Authors
+
+Michel Albonico - Federal University of Technology - Paraná, Brazil/University of Southern Denmark, Denmark (mical at mmmi.sdu.dk)
+Andreas Wortmann - ISW/University of Stuttgart, Germany (andreas.wortmann at isw.uni-stuttgart.de)
+Ivano Malavolta - S2 Group/Vrije Universiteit Amsterdam, The Netherlands (i.malavolta at vu.nl)
 
 ## Table of Contents
 
