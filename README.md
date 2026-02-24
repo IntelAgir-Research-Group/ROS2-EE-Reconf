@@ -8,6 +8,18 @@ This is the replication package of the paper `Tuning ROS 2 for Greener Navigatio
 - Andreas Wortmann - ISW/University of Stuttgart, Germany (andreas.wortmann at isw.uni-stuttgart.de)
 - Ivano Malavolta - S2 Group/Vrije Universiteit Amsterdam, The Netherlands (i.malavolta at vu.nl)
 
+## How to Cite Us
+
+```
+@inproceedings{albonico_et_al_2026_icra,
+  title = { Tuning ROS 2 for Greener Navigation: Experimental Insights from Costmap 2D Configurations },
+  author = { Michel Albonico and Andreas Wortmann and Ivano Malavolta },
+  pages = { To appear },
+  booktitle={ICRA},
+  year      = {2026}
+}
+```
+
 ## Table of Contents
 
 - [Workspace](#workspace)
